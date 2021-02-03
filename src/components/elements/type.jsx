@@ -1,7 +1,11 @@
 import React from 'react';
 import * as C from '../../constants';
+import { StepsContext } from '../contexts/steps';
+import { SummaryContext } from '../contexts/summary';
 
 export const Type = ({ goToNext, summary, setSummary }) => {
+  const { isPlan, changePlan } = React.useContext(SummaryContext);
+  const { goToStep } = React.useContext(StepsContext);
   return (
     <div className="type">
       <div className="container-slim text-center">
@@ -17,8 +21,8 @@ export const Type = ({ goToNext, summary, setSummary }) => {
             <p className="type-description">Personaliza tu caja NUNUU con nuestros pañales ecológicos y nuestros productos de higiene bio.</p>
             <button 
               onClick={() => {
-                goToNext(C.STAGE);
-                setSummary({ ...summary, isPlan: true });
+                changePlan(true);
+                goToStep(C.STAGE);
               }} 
               className="btn-pink full-width mt-auto w-button"
             >
@@ -35,8 +39,8 @@ export const Type = ({ goToNext, summary, setSummary }) => {
             <div className="py-5"></div>
             <button
               onClick={() => {
-                goToNext(C.PRODUCTS);
-                setSummary({ ...summary, isPlan: false });
+                changePlan(false);
+                goToStep(C.PRODUCTS);
               }}
               className="btn-pink full-width mt-auto w-button"
             >
