@@ -47,7 +47,7 @@ export const Stages = () => {
         {
           C.LIST_ALL_STAGES.map(stage => {
             const { id, name, target, equiv, img } = stage;
-            const savedStage = stages.find((pr) => pr.id === id);
+            const savedStage = stages.find((st) => st.id === id);
             
             const amount = savedStage
               ? savedStage.amount 
