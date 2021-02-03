@@ -21,7 +21,7 @@ export const Products = () => {
 
       <h2 className="h2 mb-7">Agrega los productos que quieres en tu caja</h2>
       <div className="products-grid">
-        { PRODUCTS_LIST.map((product, index) => {
+        { PRODUCTS_LIST.map(product => {
           const { id, name, desc, img, price } = product;
           const savedProduct = products.find((pr) => pr.id === id);
           const amount = savedProduct

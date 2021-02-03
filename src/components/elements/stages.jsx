@@ -45,7 +45,7 @@ export const Stages = () => {
       <p className="mb-8">Elige hasta <span className="weight-bold text-blue">5 paquetes</span></p>
       <div className="stages-grid">
         {
-          C.LIST_ALL_STAGES.map((stage, index) => {
+          C.LIST_ALL_STAGES.map(stage => {
             const { id, name, target, equiv, img } = stage;
             const savedStage = stages.find((pr) => pr.id === id);
             
