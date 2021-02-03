@@ -9,8 +9,9 @@ import { Login } from './elements/login';
 import { Payment } from './elements/payment';
 import { Congratulations } from './elements/congrats';
 import { Resume } from './resume';
+import { StepsContext } from './contexts/steps';
 
-const TabWrap = ({ resume, children, summary, nextStep, previousStep }) => (
+const TabWrap = ({ resume, children  }) => (
   <div className="process-container main">
     <div className="container-slim">
       <div className="row">
@@ -27,13 +28,14 @@ const TabWrap = ({ resume, children, summary, nextStep, previousStep }) => (
   </div>
 )
 
-export const Content = ({ clear, summary, setSummary, step, goToNext, goToPrevious }) => {
+export const Content = ({ clear, summary, setSummary, goToNext, goToPrevious }) => {
+  const { currStep: step } = React.useContext(StepsContext);
   let resume = null;
   
   switch(step) {
     case C.TYPE:
       return (
-        <Type goToNext={goToNext} summary={summary} setSummary={setSummary} />
+        <Type />
       );  
     case C.PRODUCTS:
       resume = () => <Resume summary={summary} nextStep={() => goToNext(C.LOGIN)} />;
