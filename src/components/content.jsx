@@ -11,7 +11,7 @@ import { Congratulations } from './elements/congrats';
 import { Resume } from './resume';
 import { StepsContext } from './contexts/steps';
 
-const TabWrap = ({ resume, children  }) => (
+const TabWrap = ({ children  }) => (
   <div className="process-container main">
     <div className="container-slim">
       <div className="row">
@@ -22,59 +22,54 @@ const TabWrap = ({ resume, children  }) => (
             </div>
           </div>
         </div>
-        { resume() }
+        <Resume />
       </div>
     </div>
   </div>
 )
 
-export const Content = ({ clear, summary, setSummary, goToNext, goToPrevious }) => {
+export const Content = () => {
   const { currStep: step } = React.useContext(StepsContext);
-  let resume = null;
   
   switch(step) {
     case C.TYPE:
       return (
         <Type />
-      );  
+      );
     case C.PRODUCTS:
-      resume = () => <Resume summary={summary} nextStep={() => goToNext(C.LOGIN)} />;
+    case C.PRODUCTS_PURE:
       return (
-        <TabWrap resume={ resume }>
-          <Products clear={clear} summary={summary} setSummary={setSummary} goToPrevious={goToPrevious} />
+        <TabWrap>
+          <Products />
         </TabWrap>
       );
     case C.STAGE:
-      resume = () => <Resume summary={summary} nextStep={() => goToNext(C.DESIGN)} />;
       return (
-        <TabWrap resume={ resume }>
-          <Stages clear={clear} summary={summary} setSummary={setSummary} goToPrevious={goToPrevious} />
+        <TabWrap>
+          <Stages />
         </TabWrap>
       );
     case C.DESIGN:
-      resume = () => <Resume summary={summary} nextStep={() => goToNext(C.FREQUENCY)} />;
       return (
-        <TabWrap resume={ resume }>
-          <Designs summary={summary} setSummary={setSummary} goToPrevious={goToPrevious} />
+        <TabWrap>
+          <Designs />
         </TabWrap>
       );
     case C.FREQUENCY:
-      resume = () => <Resume summary={summary} nextStep={() => goToNext(C.LOGIN)} />;
       return (
-        <TabWrap resume={ resume }>
-          <Frequency summary={summary} setSummary={setSummary} goToPrevious={goToPrevious} />
+        <TabWrap>
+          <Frequency />
         </TabWrap>
       );
     case C.LOGIN:
-      resume = () => <Resume summary={summary} nextStep={() => goToNext(C.PAYMENT)} />;
       return (
-        <TabWrap resume={ resume }>
-          <Login summary={summary} setSummary={setSummary} goToPrevious={goToPrevious} />
+        <TabWrap>
+          <Login />
         </TabWrap>
       );
     case C.PAYMENT:
       return (
-        <Payment summary={summary} nextStep={() => goToNext(C.CONGRATS)} goToPrevious={goToPrevious} />
+        <Payment />
       );
     case C.CONGRATS:
       return (

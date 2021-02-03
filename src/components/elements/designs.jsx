@@ -20,27 +20,6 @@ export const Designs = () => {
     if (thereAreMultiple) setMultiple(true);
   }, [designs]);
 
-  // const onAmountChange = (index, design, amount) => {
-  //   if (amount >= 0) {
-  //     const { stages: tempStages = [] } = summary;
-  //     const stg = tempStages.find(({ index: stgInd }) => index === stgInd);
-  //     const stageLimit = stg.amount;
-      
-  //     const tdesigns = multiple 
-  //       ? [...summDesigns] 
-  //       : summDesigns.filter(({ stage: stageID }) => stageID !== index);
-  //     const dsgIndex = tdesigns.findIndex(({ id: did, stage: stageID }) => did === design && stageID === index);
-  //     if (dsgIndex >= 0) {
-  //       tdesigns[dsgIndex].amount = amount;
-  //     } else {
-  //       tdesigns.push({ id: design, stage: index, amount });
-  //     }
-  //     const stageTotal = tdesigns.filter(({ stage: stageID }) => stageID === index).reduce((prev, curr) => (prev + curr.amount), 0);
-  //     if (stageTotal > stageLimit) return;
-  //     setSummary({ ...summary, designs: tdesigns });
-  //   }
-  // };
-
   return (
     <div id="design" className="w-tab-pane w--tab-active" role="tabpanel">
       <button onClick={goToPrev} className="process-back w-inline-block">
