@@ -15,9 +15,10 @@ export const SummaryProvider = ({ children }: Props) => {
   }
 
   const changeProducts = (product, amount) => {
+    if (amount < 0) return;
+
     const productsTemp = [...products];
     const index = productsTemp.findIndex(({id}) => id === product.id);
-    if (amount < 0) return;
     if (amount === 0) {
       if (index >= 0) {
         productsTemp.splice(index, 1);
@@ -37,7 +38,7 @@ export const SummaryProvider = ({ children }: Props) => {
   }
 
   const changeStages = (stage, amount, unique = false) => {
-    console.log(amount);
+    if (amount < 0) return;
     if (unique) {
       const stagesTemp = [];
       stagesTemp.push({...stage, amount});
@@ -45,7 +46,6 @@ export const SummaryProvider = ({ children }: Props) => {
     } else {
       const stagesTemp = [...stages];
       const index = stagesTemp.findIndex(({id}) => id === stage.id);
-      if (amount < 0) return;
       if (amount === 0) {
         if (index >= 0) {
           stagesTemp.splice(index, 1);
@@ -58,7 +58,7 @@ export const SummaryProvider = ({ children }: Props) => {
           return curr.id === stage.id
             ? prev + amount
             : prev + curr.amount
-        }, 0);
+        }, index >= 0 ? 0 : amount);
         const limit = isPlan
           ? C.PLAN_STAGES_LIMIT
           : products.filter(({isStage}) => isStage).reduce((prev, curr) => (prev + curr.amount), 0);
@@ -76,8 +76,47 @@ export const SummaryProvider = ({ children }: Props) => {
     }
   }
 
-  const changeDesigns = (stageID, design, amount) => {
+  const changeDesigns = (stageID, designID, amount, unique = false) => {
+    if (amount < 0) return;
+    if (unique) {
+      const designsTemp = designs.filter(({ stageID: stx }) => stx !== stageID);
+      designsTemp.push({ stageID, designID, amount });
+      setDesigns(designsTemp);
+    } else {
+      const designsTemp = [...designs];
+      const index = designsTemp.findIndex(
+        ({ stageID: stx, designID: dex }) => stx === stageID && dex === designID);
+      if (amount === 0) {
+        if (index >= 0) {
+          designsTemp.splice(index, 1);
+          setDesigns(designsTemp);
+        } else {
+          console.log('NO INDEX TO REMOVE');
+        }
+      } else {
+        const total = designsTemp.filter((des) => (
+          des.stageID === stageID
+        )).reduce((prev, curr) => {
+          return curr.stageID === stageID && curr.designID === designID
+            ? prev + amount
+            : prev + curr.amount
+        }, index >= 0 ? 0 : amount);
+        const limit = stages.filter((st) => (
+          st.id === stageID
+        )).reduce((prev, curr) => prev + curr.amount, 0);
+        console.log({ limit, total, designsTemp, stages });
 
+        if (total <= limit) {
+          if (index >= 0) {
+            designsTemp[index].amount = amount;
+            setDesigns(designsTemp)
+          } else {
+            designsTemp.push({stageID, designID, amount});
+            setDesigns(designsTemp.sort((a, b) => a.stageID - b.stageID));
+          }
+        }
+      }
+    }
   }
 
   const changeDate = (value) => {

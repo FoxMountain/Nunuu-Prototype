@@ -35,3 +35,9 @@ export const LIST_ALL_STAGES = [
   { id: 4, name: 'Etapa 5', target: 'De 12 a 15kg', equiv: 'equivale a 120 pañales', img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f25502537b237647b2f2f_stage.svg' },
   { id: 5, name: 'Etapa 6', target: '+14Kg', equiv: 'equivale a 120 pañales', img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f25502537b237647b2f2f_stage.svg' },
 ];
+
+export const LIST_ALL_DESIGNS = [
+  { id: 0, img: 'https://uploads-ssl.webflow.com/600eff8cbf53c99e0ed39440/60142e451bc89fe6659de3c4_Textura-Dinosaurios%403x.png'},
+  { id: 1, img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/6010378b63ee0f8b8273020c_design2.png' },
+  { id: 2, img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/6010378be1e192268d8c3e09_design3.png' },
+];

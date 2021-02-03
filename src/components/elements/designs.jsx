@@ -1,43 +1,49 @@
 import React from 'react';
 import classnames from 'classnames';
+import * as C from '../../constants';
+import { SummaryContext } from '../contexts/summary';
+import { StepsContext } from '../contexts/steps';
 
-export const Designs = ({ goToPrevious, setSummary, summary }) => {
-  const { stages, designs: summDesigns = [] } = summary;
-  const designs = [
-    { img: 'https://uploads-ssl.webflow.com/600eff8cbf53c99e0ed39440/60142e451bc89fe6659de3c4_Textura-Dinosaurios%403x.png', id: 1 },
-    { img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/6010378b63ee0f8b8273020c_design2.png', id: 2 },
-    { img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/6010378be1e192268d8c3e09_design3.png', id: 3 },
-  ];
+export const Designs = () => {
+  const { stages, designs, changeDesigns, clear } = React.useContext(SummaryContext);
+  const { goToPrev } = React.useContext(StepsContext);
   const [multiple, setMultiple] = React.useState(false);
 
-  const onAmountChange = (index, design, amount) => {
-    if (amount >= 0) {
-      const { stages: tempStages = [] } = summary;
-      const stg = tempStages.find(({ index: stgInd }) => index === stgInd);
-      const stageLimit = stg.amount;
-      
-      const tdesigns = multiple 
-        ? [...summDesigns] 
-        : summDesigns.filter(({ stage: stageID }) => stageID !== index);
-      const dsgIndex = tdesigns.findIndex(({ id: did, stage: stageID }) => did === design && stageID === index);
-      if (dsgIndex >= 0) {
-        tdesigns[dsgIndex].amount = amount;
-      } else {
-        tdesigns.push({ id: design, stage: index, amount });
-      }
-      const stageTotal = tdesigns.filter(({ stage: stageID }) => stageID === index).reduce((prev, curr) => (prev + curr.amount), 0);
-      if (stageTotal > stageLimit) return;
-      setSummary({ ...summary, designs: tdesigns });
-    }
-  };
+  React.useEffect(() => {
+    const result = { };
+    let thereAreMultiple = false;
+    designs.forEach((des) => {
+      if (!result[des.stageID]) result[des.stageID] = 0;
+      else thereAreMultiple = true;
+      ++result[des.stageID];
+    });
+    if (thereAreMultiple) setMultiple(true);
+  }, [designs]);
 
-  const reset = () => {
-    setSummary({ ...summary, designs: [] });
-  };
+  // const onAmountChange = (index, design, amount) => {
+  //   if (amount >= 0) {
+  //     const { stages: tempStages = [] } = summary;
+  //     const stg = tempStages.find(({ index: stgInd }) => index === stgInd);
+  //     const stageLimit = stg.amount;
+      
+  //     const tdesigns = multiple 
+  //       ? [...summDesigns] 
+  //       : summDesigns.filter(({ stage: stageID }) => stageID !== index);
+  //     const dsgIndex = tdesigns.findIndex(({ id: did, stage: stageID }) => did === design && stageID === index);
+  //     if (dsgIndex >= 0) {
+  //       tdesigns[dsgIndex].amount = amount;
+  //     } else {
+  //       tdesigns.push({ id: design, stage: index, amount });
+  //     }
+  //     const stageTotal = tdesigns.filter(({ stage: stageID }) => stageID === index).reduce((prev, curr) => (prev + curr.amount), 0);
+  //     if (stageTotal > stageLimit) return;
+  //     setSummary({ ...summary, designs: tdesigns });
+  //   }
+  // };
 
   return (
     <div id="design" className="w-tab-pane w--tab-active" role="tabpanel">
-      <button onClick={() => { goToPrevious(); reset(); }} className="process-back w-inline-block">
+      <button onClick={goToPrev} className="process-back w-inline-block">
         <img
           src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f6ebc00ce6a5bf93e699f_icon-left.svg"
           loading="lazy" alt=""
@@ -50,7 +56,14 @@ export const Designs = ({ goToPrevious, setSummary, summary }) => {
           <p className="mr-2">Combinar Diseños</p>
           <div className="w-embed w-script">
             <label className="switch stage">
-              <input type="checkbox" checked={multiple} onChange={() => { setMultiple(!multiple); reset(); }} />
+              <input
+                type="checkbox"
+                checked={multiple}                
+                onChange={() => { 
+                  setMultiple(!multiple);
+                  if (multiple) clear.designs();
+                }}
+              />
               <span className="slider round"></span>
             </label>
           </div>
@@ -59,9 +72,9 @@ export const Designs = ({ goToPrevious, setSummary, summary }) => {
 
       <div className="design-grid">
         {
-          stages.filter(s => s.amount > 0).map(({ index: stgIndex, name, amount: limit }) => {
+          stages.map(({ id: stgID, name }) => {
             return (
-              <div className="design-card" key={stgIndex}>
+              <div className="design-card" key={stgID}>
                 <div className="img-container">
                   <img
                     src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f2700c612ede6e7cbf076_diaper-design-01.png"
@@ -75,14 +88,23 @@ export const Designs = ({ goToPrevious, setSummary, summary }) => {
                   <div className="design-selector-grid">
 
                     {
-                      designs.map(({ id, img }, dind) => {
-                        const dsg = summDesigns.find(({ id: did, stage: stg, amount: amnt }) => did === id && stg === stgIndex && amnt > 0);
-                        const amount = dsg ? dsg.amount : 0;
+                      C.LIST_ALL_DESIGNS.map(({ id, img }) => {
+                        const savedDesign = designs.find((des) => des.designID === id && des.stageID === stgID);
+                        const amount = savedDesign
+                          ? savedDesign.amount
+                          : 0;
+
+                        const limit = stages.reduce((prev, curr) => {
+                          return curr.id === stgID
+                            ? prev + curr.amount
+                            : prev
+                        }, 0);
+
                         return (
-                          <div key={`${stgIndex}-${id}`} className="design-selector">
+                          <div key={`${stgID}-${id}`} className="design-selector">
                             <button
-                              onClick={multiple ? () => {} : () => onAmountChange(stgIndex, id, limit) }
-                              className={classnames("design w-inline-block", { single: !multiple, active: !multiple && dsg })}
+                              onClick={multiple ? undefined : () => changeDesigns(stgID, id, limit, !multiple) }
+                              className={classnames("design w-inline-block", { single: !multiple, active: !multiple && amount })}
                             >
                               <img
                                 src={img}
@@ -95,11 +117,11 @@ export const Designs = ({ goToPrevious, setSummary, summary }) => {
                                 ? null
                                 : (
                                   <div className="input-field display">
-                                    <button onClick={() => onAmountChange(stgIndex, id, amount - 1) } className="btn-less w-button">-</button>
+                                    <button onClick={() => changeDesigns(stgID, id, amount - 1) } className="btn-less w-button">-</button>
                                     <div className="w-embed">
-                                      <input type="number" min={0} className="design-quantity" value={amount} onChange={(el) => onAmountChange(stgIndex, id, el.target.value) } />
+                                      <input type="number" min={0} className="design-quantity" value={amount} onChange={(el) => changeDesigns(stgID, id, el.target.value) } />
                                     </div>
-                                    <button onClick={() => onAmountChange(stgIndex, id, amount + 1) } className="btn-more w-button">+</button>
+                                    <button onClick={() => changeDesigns(stgID, id, amount + 1) } className="btn-more w-button">+</button>
                                   </div>
                                 )
                             }
