@@ -1,11 +1,16 @@
 import React from 'react';
 import { toCurrency } from '../../utils/currency';
+import { SummaryContext } from '../contexts/summary';
+import * as C from '../../constants';
+import { StepsContext } from '../contexts/steps';
 
-export const Payment = ({ summary, nextStep, goToPrevious }) => {
-  const { isPlan = false, products = [], stages = [] } = summary;
-  const monthlyTotal = isPlan ? 1000 : 0;
-  const shippingTotal = isPlan ? 0 : 100;
-  const productsTotal = products.filter(({ amount }) => (amount > 0)).reduce((prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
+export const Payment = () => {
+  const { isPlan, products, stages } = React.useContext(SummaryContext);;
+  const { goToPrev, goToNext } = React.useContext(StepsContext); 
+  const monthlyTotal = isPlan ? C.PLAN_COST : 0;
+  const shippingTotal = isPlan ? C.SHIPPING_PLAN : C.SHIPPING_PRODUCTS;
+  const productsTotal = products.reduce(
+    (prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
   const total = monthlyTotal + shippingTotal + productsTotal;
 
   return (
@@ -13,7 +18,7 @@ export const Payment = ({ summary, nextStep, goToPrevious }) => {
       <div className="container-slim">
         <div className="row">
           <div className="payment-container">
-            <button onClick={() => { goToPrevious(); }} className="process-back w-inline-block">
+            <button onClick={goToPrev} className="process-back w-inline-block">
               <img
                 src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f6ebc00ce6a5bf93e699f_icon-left.svg"
                 loading="lazy" alt=""
@@ -45,8 +50,8 @@ export const Payment = ({ summary, nextStep, goToPrevious }) => {
                   }
 
                   { 
-                    products.filter(({ amount }) => (amount > 0)).map(({ name, amount, price = 0 }, index) => (
-                      <div className="resume-item" key={index}>
+                    products.filter(({ amount }) => (amount > 0)).map(({ id, name, amount, price = 0 }) => (
+                      <div className="resume-item" key={id}>
                         <p className="resume-payment-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
                         <p className="resume-price resume-price-size">${ toCurrency(price * amount) }MXN</p>
                       </div>
@@ -55,8 +60,8 @@ export const Payment = ({ summary, nextStep, goToPrevious }) => {
                   
                   <div className="resume-stages">
                     {
-                      stages.filter(({ amount }) => (amount > 0)).map(({ name, amount }) => (
-                        <div className="resume-item">
+                      stages.filter(({ amount }) => (amount > 0)).map(({ id, name, amount }) => (
+                        <div className="resume-item" key={id}>
                           <p className="resume-payment-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
                         </div>
                       ))
@@ -118,16 +123,10 @@ export const Payment = ({ summary, nextStep, goToPrevious }) => {
                           </div>
                         </div>
                       </form>
-                      <div className="w-form-done">
-                        <div>Thank you! Your submission has been received!</div>
-                      </div>
-                      <div className="w-form-fail">
-                        <div>Oops! Something went wrong while submitting the form.</div>
-                      </div>
                     </div>
                   </div>
                 </div>
-                <button className="btn-blue full-width display-block next-step-payment w-button" onClick={nextStep}>
+                <button className="btn-blue full-width display-block next-step-payment w-button" onClick={goToNext}>
                   <span>Pagar ahora</span>
                   <img src='https://uploads-ssl.webflow.com/600eff8cbf53c99e0ed39440/60143b72d8ab46269e710fb9_Icon-Right.svg' />
                 </button>
