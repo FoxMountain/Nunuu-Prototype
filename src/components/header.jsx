@@ -4,46 +4,53 @@ import classnames from 'classnames';
 import { StepsContext } from './contexts/steps';
 import { SummaryContext } from './contexts/summary';
 
+const TimelineProgress = ({ name, value, currentValue }) => (
+  <div className="progress">
+    <div className={classnames("progressbar", { active: currentValue >= value, 'display-none': value === 1 })}></div>
+    <div className="dot-container">
+      <div className={classnames("dot", { active: currentValue >= value })}></div>
+      <p className={classnames("timeline-label", { active: currentValue >= value })}>
+        {name}
+      </p>
+    </div>
+  </div>
+)
+
 export const Header = () => {
   const { currStep: step } = React.useContext(StepsContext);
-  const { isPlan } = React.useContext(SummaryContext);
+  const { isPlan, products } = React.useContext(SummaryContext);
   let title = '';
   let body = '';
   let tip = '';
   let timelineValue = 0;
+  const toStage = products.some(({ isStage }) => isStage);
 
   switch(step) {
+    case C.PRODUCTS_PURE:
     case C.PRODUCTS:
-      timelineValue = 1;
       title = 'Agrega Productos a tu caja NUNUU';
       body = 'Contamos con una variedad de productos que dejaran radiante y limpio a tu bebé.';
       break;
     case C.STAGE:
-      timelineValue = 1;
       title = 'Elegiste un Plan Mensual';
       body = 'Personaliza tu Caja NUNUU. Elige de acuerdo al tamaño de tu bebé y selecciona las etapas.';
       tip = 'Tip: Si necesitas combinar tamaños puedes activar el switch.';
       break;
     case C.DESIGN:
-      timelineValue = 2;
       title = '¡Excelente! Personaliza el diseño de los pañales para tu bebé.';
       body = 'Cada tamaño cuenta con diseños diferentes, elige el diseño que más te agrede.';
       break;
     case C.FREQUENCY:
-      timelineValue = 3;
       title = '¡Perfecto! es momento de elegir la frecuencia de tu pedido.';
       body = 'Nuestros pedidos son entregados después de 48 horas. Podrás cambiar la frecuencia de tus pedidos cuando quieras en tu portal.';
       break;
     case C.LOGIN:
-      timelineValue = 4;
       title = 'Solo falta iniciar sesión/crea un cuenta y agregar tus datos de envío.';
       break;
     case C.PAYMENT:
-      timelineValue = 5;
       title = 'Revisa tu resumen y que tu pedido esté correcto. ¡Solo queda pagar y listo!';
       break;
     case C.CONGRATS:
-      timelineValue = 6;
       title = '¡Muchas Gracias Por Tú Compra!';
       body = 'En unos momentos recibirás un email con los datos de tu compra.';
       tip = 'Número de Rastreo: 1349573037'
@@ -55,71 +62,62 @@ export const Header = () => {
       break;
   }
 
+  switch(step) {
+    case C.PRODUCTS:
+      timelineValue = 1;
+      break;
+    case C.STAGE:
+      timelineValue = isPlan ? 1 : 2;
+      break;
+    case C.DESIGN:
+      timelineValue = isPlan ? 2 : 3;
+      break;
+    case C.PRODUCTS_PURE:
+      timelineValue = 3;
+      break;
+    case C.FREQUENCY:
+      timelineValue = 4;
+      break;
+    case C.LOGIN:
+      timelineValue = isPlan ? 5 : toStage ? 4 : 2;
+      break;
+    case C.PAYMENT:
+      timelineValue = isPlan ? 6 : toStage ? 5 : 3;
+      break;
+    default:
+      break;
+  }
+
   const timeline = step === C.TYPE || step === C.CONGRATS
     ? null
     : isPlan
       ? (
-        <div className="timeline">
-          <div className="progress">
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 1 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 1 })}>ETAPA</p>
-            </div>
-          </div>
-          <div className="progress">
-            <div className={classnames("progressbar", { active: timelineValue >= 2 })}></div>
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 2 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 2 })}>DISEÑO</p>
-            </div>
-          </div>
-          <div className="progress">
-            <div className={classnames("progressbar", { active: timelineValue >= 3 })}></div>
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 3 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 3 })}>FREcUENCIA</p>
-            </div>
-          </div>
-          <div className="progress">
-            <div className={classnames("progressbar", { active: timelineValue >= 4 })}></div>
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 4 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 4 })}>ENVÍO</p>
-            </div>
-          </div>
-          <div className="progress">
-            <div className={classnames("progressbar", { active: timelineValue >= 5 })}></div>
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 5 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 5 })}>PAGO</p>
-            </div>
-          </div>
-        </div>
+        <>
+          <TimelineProgress name='Etapa' value={1} currentValue={timelineValue} />
+          <TimelineProgress name='Diseño' value={2} currentValue={timelineValue} />
+          <TimelineProgress name='Productos' value={3} currentValue={timelineValue} />
+          <TimelineProgress name='Frecuencia' value={4} currentValue={timelineValue} />
+          <TimelineProgress name='Envío' value={5} currentValue={timelineValue} />
+          <TimelineProgress name='Pago' value={6} currentValue={timelineValue} />
+        </>
       )
-      : (
-        <div className="timeline">
-          <div className="progress">
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 1 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 1 })}>PRODUCTOS</p>
-            </div>
-          </div>
-          <div className="progress">
-            <div className={classnames("progressbar", { active: timelineValue >= 4 })}></div>
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 4 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 4 })}>ENVÍO</p>
-            </div>
-          </div>
-          <div className="progress">
-            <div className={classnames("progressbar", { active: timelineValue >= 5 })}></div>
-            <div className="dot-container">
-              <div className={classnames("dot", { active: timelineValue >= 5 })}></div>
-              <p className={classnames("timeline-label", { active: timelineValue >= 5 })}>PAGO</p>
-            </div>
-          </div>
-        </div>
-      );
+      : toStage
+        ? (
+          <>
+            <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+            <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
+            <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
+            <TimelineProgress name='Envío' value={4} currentValue={timelineValue} />
+            <TimelineProgress name='Pago' value={5} currentValue={timelineValue} />
+          </>
+        )
+        : (
+          <>
+            <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+            <TimelineProgress name='Envío' value={2} currentValue={timelineValue} />
+            <TimelineProgress name='Pago' value={3} currentValue={timelineValue} />
+          </>
+        );
 
   return (
     <div className="header">
@@ -136,7 +134,9 @@ export const Header = () => {
               <p className={classnames("text-blue", { 'display-none': !tip })}>{tip}</p>
             </div>
           </div>
-          { timeline }
+          <div className="timeline">
+            { timeline }
+          </div>
           {
             step !== C.CONGRATS
               ? null

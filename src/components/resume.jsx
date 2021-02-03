@@ -10,7 +10,8 @@ export const Resume = () => {
 
   const monthlyTotal = isPlan ? C.PLAN_COST : 0;
   const shippingTotal = isPlan ? C.SHIPPING_PLAN : C.SHIPPING_PRODUCTS;
-  const productsTotal = products.reduce((prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
+  const productsTotal = products.reduce(
+    (prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
   const total = monthlyTotal + shippingTotal + productsTotal;
 
   return (

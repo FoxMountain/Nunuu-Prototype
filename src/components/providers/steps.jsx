@@ -67,7 +67,9 @@ export const StepsProvider = ({ children }: Props) => {
       } else {
         switch(currStep) {
           case C.PRODUCTS:
-            goToStep(C.LOGIN);
+            const toStage = products.some(({ isStage }) => isStage);
+            if (toStage) goToStep(C.STAGE);
+            else goToStep(C.LOGIN);
             break;
           case C.STAGE:
             goToStep(C.DESIGN);

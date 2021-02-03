@@ -43,9 +43,8 @@ export const LIST_ALL_DESIGNS = [
 ];
 
 export const LIST_ALL_FREQUENCIES = [
-  { id: 0, period: '3 Semanas', quantity: '11 pañales al día'},
-  { id: 1, period: '4 Semanas', quantity: '9 pañales al día'},
-  { id: 2, period: '5 Semanas', quantity: '7 pañales al día'},
-  { id: 3, period: '6 Semanas', quantity: '6 pañales al día'},
-
+  { id: 1, period: '3 Semanas', quantity: '11 pañales al día'},
+  { id: 2, period: '4 Semanas', quantity: '9 pañales al día'},
+  { id: 3, period: '5 Semanas', quantity: '7 pañales al día'},
+  { id: 4, period: '6 Semanas', quantity: '6 pañales al día'},
 ];
