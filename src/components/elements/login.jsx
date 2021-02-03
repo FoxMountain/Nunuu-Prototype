@@ -1,7 +1,10 @@
 import React from 'react';
+import * as C from '../../constants';
+import { StepsContext } from '../contexts/steps';
 
-export const Login = ({ goToPrevious }) => {
+export const Login = () => {
   const [register, setRegister] = React.useState(false);
+  const { goToPrev } = React.useContext(StepsContext);
 
   const loginComp = (
     <>
@@ -41,83 +44,83 @@ export const Login = ({ goToPrevious }) => {
   );
   const registerComp = (
     <>
-      <h2 class="h2 mb-4">Cliente Nuevo</h2>
-      <div class="col-10 col-padding-0 mb-5">
-        <div class="w-form">
+      <h2 className="h2 mb-4">Cliente Nuevo</h2>
+      <div className="col-10 col-padding-0 mb-5">
+        <div className="w-form">
           <form id="email-form" name="email-form" data-name="Email Form">
-            <div class="row mb-4">
-              <label class="radio-button-field-2 mr-4 w-radio">
+            <div className="row mb-4">
+              <label className="radio-button-field-2 mr-4 w-radio">
                 <input type="radio" data-name="Gender"
-                  id="Sr." name="Gender" value="Sr." class="w-form-formradioinput radio-button w-radio-input"
+                  id="Sr." name="Gender" value="Sr." className="w-form-formradioinput radio-button w-radio-input"
                 />
-                <span for="Sr.-2" class="label w-form-label">Sr.</span>
+                <span for="Sr.-2" className="label w-form-label">Sr.</span>
               </label>
-              <label class="radio-button-field w-radio">
+              <label className="radio-button-field w-radio">
                 <input
                   type="radio" data-name="Gender" id="Sr." name="Gender" value="Sr."
-                  class="w-form-formradioinput radio-button w-radio-input"
+                  className="w-form-formradioinput radio-button w-radio-input"
                 />
-                <span for="Sr.-2" class="label w-form-label">Sra.</span>
+                <span for="Sr.-2" className="label w-form-label">Sra.</span>
               </label>
             </div>
-            <div class="row">
-              <div class="col-6 pl-0 pr-3 mb-4">
-                <label for="Nuevo-Nombre-2" class="label">Nombre*</label>
+            <div className="row">
+              <div className="col-6 pl-0 pr-3 mb-4">
+                <label for="Nuevo-Nombre-2" className="label">Nombre*</label>
                 <input type="text"
-                  class="input w-input" maxlength="256" name="Nuevo-Nombre-2" data-name="Nuevo Nombre 2"
+                  className="input w-input" maxlength="256" name="Nuevo-Nombre-2" data-name="Nuevo Nombre 2"
                   placeholder="Escribe tu nombre" id="Nuevo-Nombre-2" required=""
                 />
               </div>
-              <div class="col-6 pr-0 pl-3 mb-4">
-                <label for="Nuevo-apellidos-2" class="label">Apellidos*</label>
+              <div className="col-6 pr-0 pl-3 mb-4">
+                <label for="Nuevo-apellidos-2" className="label">Apellidos*</label>
                 <input
-                  type="text" class="input w-input" maxlength="256" name="Nuevo-apellidos-2" data-name="Nuevo Apellidos 2"
+                  type="text" className="input w-input" maxlength="256" name="Nuevo-apellidos-2" data-name="Nuevo Apellidos 2"
                   placeholder="Escribe tus apellidos" id="Nuevo-apellidos-2" required=""
                 />
               </div>
             </div>
-            <div class="row">
-              <div class="col-6 pl-0 pr-3 mb-4">
-                <label for="Nuevo-correo-2" class="label">email*</label>
+            <div className="row">
+              <div className="col-6 pl-0 pr-3 mb-4">
+                <label for="Nuevo-correo-2" className="label">email*</label>
                 <input type="text"
-                  class="input w-input" maxlength="256" name="Nuevo-correo-2" data-name="Nuevo Correo 2"
+                  className="input w-input" maxlength="256" name="Nuevo-correo-2" data-name="Nuevo Correo 2"
                   placeholder="Escribe tu correo" id="Nuevo-correo-2" required=""
                 />
               </div>
-              <div class="col-6 pr-0 pl-3 mb-4">
-                <label for="telefono-2" class="label">TELÉFONO</label>
+              <div className="col-6 pr-0 pl-3 mb-4">
+                <label for="telefono-2" className="label">TELÉFONO</label>
                 <input type="tel"
-                  class="input w-input" maxlength="256" name="telefono-2" data-name="Telefono 2"
+                  className="input w-input" maxlength="256" name="telefono-2" data-name="Telefono 2"
                   placeholder="Escribe tu No.De Teléfono" id="telefono-2"/>
               </div>
             </div>
-            <div class="row mb-4">
-              <div class="col-6 pl-0 pr-3 mb-4">
-                <label for="nuevo-contrase-a-3" class="label">Contraseña*</label>
+            <div className="row mb-4">
+              <div className="col-6 pl-0 pr-3 mb-4">
+                <label for="nuevo-contrase-a-3" className="label">Contraseña*</label>
                 <input
-                  type="password" class="input w-input" maxlength="256" name="nuevo-contrase-a-3"
+                  type="password" className="input w-input" maxlength="256" name="nuevo-contrase-a-3"
                   data-name="Nuevo Contrase A 3" placeholder="Escribe tu contraseña" id="nuevo-contrase-a-3" required=""
                 />
               </div>
-              <div class="col-6 pr-0 pl-3 mb-4">
-                <label for="nuevo-conf-contrase-a-2" class="label">CONFIRMA TU Contraseña</label>
-                <input type="password" class="input w-input" maxlength="256"
+              <div className="col-6 pr-0 pl-3 mb-4">
+                <label for="nuevo-conf-contrase-a-2" className="label">CONFIRMA TU Contraseña</label>
+                <input type="password" className="input w-input" maxlength="256"
                   name="nuevo-conf-contrase-a-2" data-name="Nuevo Conf Contrase A 2"
                   placeholder="Escribe de nuevo tu contraseña" id="nuevo-conf-contrase-a-2" required=""
                 />
               </div>
-              <label class="w-checkbox checkbox-field">
+              <label className="w-checkbox checkbox-field">
                 <input type="checkbox" id="checkbox-2" name="checkbox-2"
-                  data-name="Checkbox 2" class="w-checkbox-input checkbox"/>
-                <span class="label text-charcoal w-form-label">SUBSCRIBIRME AL BOLÉTIN</span>
+                  data-name="Checkbox 2" className="w-checkbox-input checkbox"/>
+                <span className="label text-charcoal w-form-label">SUBSCRIBIRME AL BOLÉTIN</span>
               </label>
             </div>
             <button type='button' className="btn-pink full-width w-button">Crear Cuenta</button>
           </form>
-          <div class="w-form-done">
+          <div className="w-form-done">
             <div>Thank you! Your submission has been received!</div>
           </div>
-          <div class="w-form-fail">
+          <div className="w-form-fail">
             <div>Oops! Something went wrong while submitting the form.</div>
           </div>
         </div>
@@ -128,7 +131,7 @@ export const Login = ({ goToPrevious }) => {
 
   return (
     <div id="login" className="w-tab-pane w--tab-active" role="tabpanel">
-      <button onClick={() => { goToPrevious(); }} className="process-back w-inline-block">
+      <button onClick={goToPrev} className="process-back w-inline-block">
         <img
           src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f6ebc00ce6a5bf93e699f_icon-left.svg"
           loading="lazy" alt=""
