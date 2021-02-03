@@ -1,8 +1,12 @@
 import React from 'react';
 import * as C from '../constants';
 import classnames from 'classnames';
+import { StepsContext } from './contexts/steps';
+import { SummaryContext } from './contexts/summary';
 
-export const Header = ({ step, isPlan }) => {
+export const Header = () => {
+  const { currStep: step } = React.useContext(StepsContext);
+  const { isPlan } = React.useContext(SummaryContext);
   let title = '';
   let body = '';
   let tip = '';
@@ -129,7 +133,7 @@ export const Header = ({ step, isPlan }) => {
               <h3 className="h3 text-orange mb-1">{title}</h3>
               <p>{body}</p>
               <div className="bubble-corner"></div>
-              <p class={classnames("text-blue", { 'display-none': !tip })}>{tip}</p>
+              <p className={classnames("text-blue", { 'display-none': !tip })}>{tip}</p>
             </div>
           </div>
           { timeline }

@@ -1,11 +1,16 @@
 import React from 'react';
 import { toCurrency } from '../utils/currency';
+import { StepsContext } from './contexts/steps';
+import { SummaryContext } from './contexts/summary';
+import * as C from '../constants';
 
-export const Resume = ({ summary, nextStep }) => {
-  const { isPlan = false, products = [], stages = [] } = summary;
-  const monthlyTotal = isPlan ? 1000 : 0;
-  const shippingTotal = isPlan ? 0 : 100;
-  const productsTotal = products.filter(({ amount }) => (amount > 0)).reduce((prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
+export const Resume = () => {
+  const { isPlan, products, stages } = React.useContext(SummaryContext);
+  const { goToNext, canGoToNext } = React.useContext(StepsContext); 
+
+  const monthlyTotal = isPlan ? C.PLAN_COST : 0;
+  const shippingTotal = isPlan ? C.SHIPPING_PLAN : C.SHIPPING_PRODUCTS;
+  const productsTotal = products.reduce((prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
   const total = monthlyTotal + shippingTotal + productsTotal;
 
   return (
@@ -17,15 +22,15 @@ export const Resume = ({ summary, nextStep }) => {
             ? (
               <div className="resume-item">
                 <p className="resume-name">Plan Mensual:</p>
-                <p className="resume-price resume-price-size">$1,000MXN</p>
+                <p className="resume-price resume-price-size">${ toCurrency(monthlyTotal) }MXN</p>
               </div>
             )
             : null
         }
         <div className="resume-products">
           { 
-            products.filter(({ amount }) => (amount > 0)).map(({ name, amount, price = 0 }, index) => (
-              <div className="resume-item" key={index}>
+            products.filter(({ amount }) => (amount > 0)).map(({ id, name, amount, price = 0 }, index) => (
+              <div className="resume-item" key={id}>
                 <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
                 <p className="resume-price resume-price-size">${ toCurrency(price * amount) }MXN</p>
               </div>
@@ -34,8 +39,8 @@ export const Resume = ({ summary, nextStep }) => {
         </div>
         <div className="resume-stages">
           {
-            stages.filter(({ amount }) => (amount > 0)).map(({ name, amount }) => (
-              <div className="resume-item">
+            stages.filter(({ amount }) => (amount > 0)).map(({ id, name, amount }) => (
+              <div className="resume-item" key={id}>
                 <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
               </div>
             ))
@@ -57,7 +62,11 @@ export const Resume = ({ summary, nextStep }) => {
           <p className="resume-total resume-price-size">${ toCurrency(total) }MXN</p>
         </div>
       </div>
-      <button onClick={nextStep} className="btn-blue full-width display-block next-step w-button mt-4 ">
+      <button 
+        className="btn-blue full-width display-block next-step w-button mt-4 "
+        disabled={!canGoToNext()}
+        onClick={goToNext}
+      >
         <span>Siguiente Paso</span>
         <img src='https://uploads-ssl.webflow.com/600eff8cbf53c99e0ed39440/60143b72d8ab46269e710fb9_Icon-Right.svg' />
       </button>
