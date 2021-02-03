@@ -1,24 +1,56 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Header } from './components/header';
+import { Content } from './components/content';
+import * as C from './constants';
+import './Default.css';
 import './App.css';
 
 function App() {
+  const [prevSteps, setPrevSteps] = React.useState([]);
+  const [currStep, setCurrStep] = React.useState(C.TYPE);
+  const [summary, setSummary] = React.useState({
+    isPlan: true,
+    products: [],
+    stages: [],
+    designs: [],
+  });
+
+  const { isPlan } = summary;
+
+  const goToNext = (nextStep) => {
+    setPrevSteps([currStep, ...prevSteps]);
+    setCurrStep(nextStep);
+  };
+
+  const goToPrevious = () => {
+    const [last, ...rest] = prevSteps; 
+    if (last) {
+      setCurrStep(last);
+      setPrevSteps(rest);
+    }
+  }
+
+  const clear = () => {
+    setSummary({
+      isPlan: true,
+      products: [],
+      stages: [],
+      designs: [],
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header step={currStep} isPlan={isPlan} />
+      <Content 
+        clear={clear}
+        summary={summary}
+        setSummary={setSummary}
+        step={currStep}
+        goToNext={goToNext}
+        goToPrevious={goToPrevious}
+      />
+    </>
   );
 }
 
