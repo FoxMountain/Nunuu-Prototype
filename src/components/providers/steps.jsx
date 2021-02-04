@@ -6,7 +6,7 @@ import { SummaryContext } from '../contexts/summary';
 export const StepsProvider = ({ children }: Props) => {
   const [prevSteps, setPrevSteps] = React.useState([]);
   const [currStep, setCurrStep] = React.useState(C.TYPE);
-  const { isPlan, products, stages, designs, date, frequency, clear } = React.useContext(SummaryContext);
+  const { isPlan, oneTimeBuy, products, stages, designs, date, frequency, clear } = React.useContext(SummaryContext);
 
   const goToStep = (value) => {
     setPrevSteps([currStep, ...prevSteps]);
@@ -75,6 +75,9 @@ export const StepsProvider = ({ children }: Props) => {
             goToStep(C.DESIGN);
             break;
           case C.DESIGN:
+            goToStep(!oneTimeBuy ? C.FREQUENCY : C.LOGIN);
+            break;
+          case C.FREQUENCY:
             goToStep(C.LOGIN);
             break;
           case C.LOGIN:

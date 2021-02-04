@@ -18,7 +18,7 @@ const TimelineProgress = ({ name, value, currentValue }) => (
 
 export const Header = () => {
   const { currStep: step } = React.useContext(StepsContext);
-  const { isPlan, products } = React.useContext(SummaryContext);
+  const { isPlan, oneTimeBuy, products } = React.useContext(SummaryContext);
   let title = '';
   let body = '';
   let tip = '';
@@ -26,28 +26,39 @@ export const Header = () => {
   const hasDiapers = products.some(({ isDiaper }) => isDiaper);
 
   switch(step) {
-    case C.PRODUCTS_PURE:
     case C.PRODUCTS:
-      title = 'Agrega Productos a tu caja NUNUU';
+      timelineValue = 1;
+      title = 'Elige los productos que deseas';
       body = 'Contamos con una variedad de productos que dejaran radiante y limpio a tu bebé.';
       break;
     case C.STAGE:
+      timelineValue = 2;
       title = 'Elegiste un Plan Mensual';
       body = 'Personaliza tu Caja NUNUU. Elige de acuerdo al tamaño de tu bebé y selecciona las etapas.';
       tip = 'Tip: Si necesitas combinar tamaños puedes activar el switch.';
       break;
     case C.DESIGN:
+      timelineValue = 3;
       title = '¡Excelente! Personaliza el diseño de los pañales para tu bebé.';
       body = 'Cada tamaño cuenta con diseños diferentes, elige el diseño que más te agrede.';
       break;
+    case C.PRODUCTS_PURE:
+      timelineValue = 4;
+      title = 'Agrega Productos a tu caja NUNUU';
+      body = 'Contamos con una variedad de productos que dejaran radiante y limpio a tu bebé.';
+      break;
     case C.FREQUENCY:
+      timelineValue = 7;
       title = '¡Perfecto! es momento de elegir la frecuencia de tu pedido.';
       body = 'Nuestros pedidos son entregados después de 48 horas. Podrás cambiar la frecuencia de tus pedidos cuando quieras en tu portal.';
       break;
     case C.LOGIN:
+    case C.SHIPPING:
+      timelineValue = 9;
       title = 'Solo falta iniciar sesión/crea un cuenta y agregar tus datos de envío.';
       break;
     case C.PAYMENT:
+      timelineValue = 10;
       title = 'Revisa tu resumen y que tu pedido esté correcto. ¡Solo queda pagar y listo!';
       break;
     case C.CONGRATS:
@@ -62,60 +73,49 @@ export const Header = () => {
       break;
   }
 
-  switch(step) {
-    case C.PRODUCTS:
-      timelineValue = 1;
-      break;
-    case C.STAGE:
-      timelineValue = isPlan ? 1 : 2;
-      break;
-    case C.DESIGN:
-      timelineValue = isPlan ? 2 : 3;
-      break;
-    case C.PRODUCTS_PURE:
-      timelineValue = 3;
-      break;
-    case C.FREQUENCY:
-      timelineValue = 4;
-      break;
-    case C.LOGIN:
-      timelineValue = isPlan ? 5 : toStage ? 4 : 2;
-      break;
-    case C.PAYMENT:
-      timelineValue = isPlan ? 6 : toStage ? 5 : 3;
-      break;
-    default:
-      break;
-  }
-
   const timeline = step === C.TYPE || step === C.CONGRATS
     ? null
     : isPlan
       ? (
         <>
-          <TimelineProgress name='Etapa' value={1} currentValue={timelineValue} />
-          <TimelineProgress name='Diseño' value={2} currentValue={timelineValue} />
-          <TimelineProgress name='Productos' value={3} currentValue={timelineValue} />
-          <TimelineProgress name='Frecuencia' value={4} currentValue={timelineValue} />
-          <TimelineProgress name='Envío' value={5} currentValue={timelineValue} />
-          <TimelineProgress name='Pago' value={6} currentValue={timelineValue} />
+          <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
+          <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
+          <TimelineProgress name='Productos' value={4} currentValue={timelineValue} />
+          <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
+          {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
+          <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
+          <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
         </>
       )
-      : toStage
-        ? (
-          <>
-            <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
-            <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
-            <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
-            <TimelineProgress name='Envío' value={4} currentValue={timelineValue} />
-            <TimelineProgress name='Pago' value={5} currentValue={timelineValue} />
-          </>
-        )
+      : hasDiapers
+        ? oneTimeBuy
+          ? (
+            <>
+              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+              <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
+              <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
+              {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
+              <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
+              <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
+            </>
+          )
+          : (
+            <>
+              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+              <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
+              <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
+              <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
+              {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
+              <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
+              <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
+            </>
+          )
         : (
           <>
             <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
-            <TimelineProgress name='Envío' value={2} currentValue={timelineValue} />
-            <TimelineProgress name='Pago' value={3} currentValue={timelineValue} />
+            {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
+            <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
+            <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
           </>
         );
 

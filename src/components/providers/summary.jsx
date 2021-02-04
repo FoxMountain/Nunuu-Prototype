@@ -4,6 +4,7 @@ import * as C from '../../constants';
 
 export const SummaryProvider = ({ children }: Props) => {
   const [isPlan, setPlan] = React.useState(true);
+  const [oneTimeBuy, setOneTimeBuy] = React.useState(true);
   const [products, setProducts] = React.useState([]);
   const [stages, setStages] = React.useState([]);
   const [designs, setDesigns] = React.useState([]);
@@ -12,6 +13,10 @@ export const SummaryProvider = ({ children }: Props) => {
 
   const changePlan = (value) => {
     setPlan(value);
+  }
+
+  const changeOneTimeBuy = (value) => {
+    setOneTimeBuy(!oneTimeBuy);
   }
 
   const changeProducts = (product, amount) => {
@@ -140,12 +145,14 @@ export const SummaryProvider = ({ children }: Props) => {
     <SummaryContext.Provider
       value={{
         isPlan,
+        oneTimeBuy,
         products,
         stages,
         designs,
         date,
         frequency,
         changePlan,
+        changeOneTimeBuy,
         changeProducts,
         changeStages,
         changeDesigns,

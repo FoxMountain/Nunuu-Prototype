@@ -5,7 +5,7 @@ import { SummaryContext } from '../contexts/summary';
 
 export const Products = () => {
   const { currStep, goToPrev } = React.useContext(StepsContext);
-  const { changeProducts, products } = React.useContext(SummaryContext);
+  const { isPlan, oneTimeBuy, changeOneTimeBuy, changeProducts, products } = React.useContext(SummaryContext);
   const PRODUCTS_LIST = currStep === C.PRODUCTS_PURE
     ? C.LIST_PURE_PRODUCTS
     : C.LIST_ALL_PRODUCTS;
@@ -28,6 +28,28 @@ export const Products = () => {
               : 'Agrega los productos que quieres en tu caja'
           }
         </h2>
+        <div className="h-vertical-center">
+          {
+            isPlan
+              ? null
+              : (
+                <>
+                  <p className="mr-2">Solo este mes</p>
+                  <div className="w-embed w-script">
+                    <label className="switch stage">
+                      <input
+                        type="checkbox"
+                        checked={!oneTimeBuy}
+                        onChange={changeOneTimeBuy}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                  </div>
+                  <p className="ml-2">Cada mes (-30%)</p>
+                </>
+              )
+          }
+        </div>
       </div>
 
       

@@ -62,6 +62,7 @@ export const Content = () => {
         </TabWrap>
       );
     case C.LOGIN:
+    case C.SHIPPING:
       return (
         <TabWrap>
           <Login />
