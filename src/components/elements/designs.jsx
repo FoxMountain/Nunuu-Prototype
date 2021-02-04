@@ -30,7 +30,7 @@ export const Designs = () => {
         <p className="return-text">Regresar</p>
       </button>
       <div className="h-horizontal-space-between mb-4">
-        <h2 className="h2">Personaliza el diseño de tu pañal</h2>
+        <h2 className="h2">Personaliza el diseño de tus pañales</h2>
         <div className="h-vertical-center">
           <p className="mr-2">Combinar Diseños</p>
           <div className="w-embed w-script">

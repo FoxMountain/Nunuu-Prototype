@@ -18,9 +18,12 @@ export const Frequency = () => {
           />
           <p className="return-text-2">Regresar</p>
         </button>
+
+        <h2 className="h2 mb-2">Elige la fecha de inicio de tu plan y la frecuencia de entrega</h2>
+        
         <div className="display-h-flex">
           <div className="col-3 col-padding-0 pt-8">
-            <h2 className="h2 mb-1">Primer Fecha De Entrega</h2>
+            <h3 className="h3 mb-1">Primer Fecha De Entrega</h3>
             <p className="text-small mb-3">Elige el día en el que te gustaría recibir tu entrega.</p>
             <div className="w-embed">
               <input type="date"
@@ -34,9 +37,9 @@ export const Frequency = () => {
             <div className="hr-vertical"></div>
           </div>
           <div className="frequency">
-            <h2 className="h2 mb-1">Primer Fecha De Entrega</h2>
-            <p className="text-small mb-3">Elige la frecuencia de entrega. Siempre puedes cambiarla en tu portal
-              para no quedarte sin pañales ni productos.</p>
+            <h3 className="h3 mt-3 mb-1">Frecuencia De Entrega</h3>
+            <p className="text-small mb-3">Elige la frecuencia de entrega. Siempre puedes cambiarla en tu portal para no quedarte sin pañales ni productos.</p>
+           
             <div className="frequency-grid">
               {
                 C.LIST_ALL_FREQUENCIES.map(({ id, period, quantity }) => (

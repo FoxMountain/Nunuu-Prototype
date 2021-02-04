@@ -19,7 +19,18 @@ export const Products = () => {
         <p className="return-text">Regresar</p>
       </button>
 
-      <h2 className="h2 mb-7">Agrega los productos que quieres en tu caja</h2>
+
+      <div className="h-horizontal-space-between mb-2">
+        <h2 className="h2 mb-7">
+          {
+            isPlan
+              ? 'Personaliza tu caja con productos adicionales a tus pañales'
+              : 'Agrega los productos que quieres en tu caja'
+          }
+        </h2>
+      </div>
+
+      
       <div className="products-grid">
         { PRODUCTS_LIST.map(product => {
           const { id, name, desc, img, price } = product;

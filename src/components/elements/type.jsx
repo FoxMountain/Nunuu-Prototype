@@ -17,8 +17,8 @@ export const Type = ({ goToNext, summary, setSummary }) => {
               loading="lazy" alt="" className="type-image" 
             />
             <h3 className="type-name h3">Plan Mensual</h3>
-            <p className="type-description text-big">A partir de $1,000 MXN<br/>+ Envío Gratis</p>
-            <p className="type-description">Personaliza tu caja NUNUU con nuestros pañales ecológicos y nuestros productos de higiene bio.</p>
+            <p className="type-description text-big">Recibe cada mes tu caja Nunuu personalizada de pañales y productos de cuidado para bebés 100% sanos y 200% cool.</p>
+            <p className="type-description">Envío gratis<br />-30% en productos</p>
             <button 
               onClick={() => {
                 changePlan(true);
@@ -35,8 +35,8 @@ export const Type = ({ goToNext, summary, setSummary }) => {
               loading="lazy" alt="" className="type-image"
             />
             <h3 className="type-name h3 mb-1">Compra Por Producto</h3>
-            <p className="type-description">¡Elige solamente los productos que requieras y realiza tu pedido!</p>
-            <div className="py-5"></div>
+            <p className="type-description text-big">Visita nuestra boutique y pide tus productos Nunuu.</p>
+            <p className="type-description text-big">100% sanos y 200% cool</p>
             <button
               onClick={() => {
                 changePlan(false);

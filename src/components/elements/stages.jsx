@@ -20,6 +20,17 @@ export const Stages = () => {
     if (stages.length > 1) setMultiple(true);
   }, [stages]);
 
+  let legend = null;
+  if (multiple) {
+    legend = limit - total === 1
+      ? <>Tienes <span className="weight-bold text-blue">{limit - total} paquete</span> disponible para elegir</>
+      : <>Tienes <span className="weight-bold text-blue">{limit - total} paquetes</span> disponibles para elegir</>
+  } else {
+    legend = limit === 1
+      ? <>Elige <span className="weight-bold text-blue">{limit} paquete</span></>
+      : <>Elige hasta <span className="weight-bold text-blue">{limit} paquetes</span></>
+  }
+
   return (
     <div id="stage" className="w-tab-pane w--tab-active" role="tabpanel">
       <button onClick={goToPrev} className="process-back w-inline-block">
@@ -30,7 +41,7 @@ export const Stages = () => {
         <p className="return-text">Regresar</p>
       </button>
       <div className="h-horizontal-space-between mb-2">
-        <h2 className="h2">Elige la etapa</h2>
+        <h2 className="h2">Elige el tamaño de pañales adecuado a la etapa de tu bebé</h2>
         <div className="h-vertical-center">
           <p className="mr-2">Combinar tamaños</p>
           <div className="w-embed w-script">
@@ -49,7 +60,8 @@ export const Stages = () => {
         </div>
       </div>
 
-      <p className="mb-8">Elige hasta <span className="weight-bold text-blue">5 paquetes</span></p>
+      <p className="mb-8">{ legend }</p>
+
       <div className="stages-grid">
         {
           C.LIST_ALL_STAGES.map(stage => {
@@ -60,14 +72,10 @@ export const Stages = () => {
               ? savedStage.amount 
               : 0;
 
-            const limit = isPlan
-              ? C.PLAN_STAGES_LIMIT
-              : products.filter(({isStage}) => isStage).reduce((prev, curr) => (prev + curr.amount), 0);
-
             return (
               <div 
                 key={id}
-                className={classnames("stage-card", { active: !multiple && amount })}
+                className={classnames("stage-card", { single: !multiple, active: !multiple && amount })}
                 onClick={multiple ? undefined : () => changeStages(stage, limit, !multiple)}
               >
                 <h3 className="stage-name h3">{name}</h3>
@@ -82,7 +90,13 @@ export const Stages = () => {
                     ? null
                     : (
                       <div className="input-field display">
-                        <button onClick={() => changeStages(stage, amount - 1) } className="btn-less w-button">-</button>
+                        <button 
+                          disabled={amount === 0}
+                          className="btn-less w-button"
+                          onClick={() => changeStages(stage, amount - 1) }
+                        >
+                          -
+                        </button>
                         <div className="w-embed">
                           <input
                             type="number"
@@ -92,7 +106,13 @@ export const Stages = () => {
                             onChange={(el) => changeStages(stage, el.target.value) }
                           />
                         </div>
-                        <button onClick={() => changeStages(stage, amount + 1) } className="btn-more w-button">+</button>
+                        <button
+                          disabled={total === limit}
+                          className="btn-more w-button"
+                          onClick={() => changeStages(stage, amount + 1) }
+                        >
+                          +
+                        </button>
                       </div>
                     )
                 }

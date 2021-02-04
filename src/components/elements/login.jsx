@@ -3,12 +3,12 @@ import * as C from '../../constants';
 import { StepsContext } from '../contexts/steps';
 
 export const Login = () => {
-  const [register, setRegister] = React.useState(false);
+  const [register, setRegister] = React.useState(true);
   const { goToPrev } = React.useContext(StepsContext);
 
   const loginComp = (
     <>
-      <h2 className="h2 mb-4">¿Ya eres cliente?</h2>
+      <h3 className="h3 mb-4">¿Ya eres cliente?</h3>
       <div className="col-10 col-padding-0 mb-5">
         <div className="w-form">
           <form id="email-form" name="email-form" data-name="Email Form">
@@ -27,16 +27,10 @@ export const Login = () => {
                   placeholder="Escribe tu contraseña" id="Contrase-a" required=""
                 />
               </div>
-              <a href="#" className="text-small text-decoration-none text-orange">Eh olvidado mi contraseña</a>
+              <a href="#" className="text-small text-decoration-none text-orange">He olvidado mi contraseña</a>
             </div>
             <button type='button' className="btn-pink full-width w-button">Iniciar Sesión</button>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
         <button onClick={() => setRegister(true)} className="text-decoration-none text-blue no-client">Aun no soy cliente</button>
       </div>
@@ -44,7 +38,7 @@ export const Login = () => {
   );
   const registerComp = (
     <>
-      <h2 className="h2 mb-4">Cliente Nuevo</h2>
+      <h3 className="h3 mb-4">Crea una cuenta con nosotros</h3>
       <div className="col-10 col-padding-0 mb-5">
         <div className="w-form">
           <form id="email-form" name="email-form" data-name="Email Form">
@@ -117,12 +111,6 @@ export const Login = () => {
             </div>
             <button type='button' className="btn-pink full-width w-button">Crear Cuenta</button>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
         <button onClick={() => setRegister(false)} className="text-decoration-none text-blue already-client">Ya soy cliente</button>
       </div>
@@ -138,6 +126,7 @@ export const Login = () => {
         />
         <p className="return-text-2">Regresar</p>
       </button>
+      <h2 className="h2 mb-2">Proporciona tus datos de entrega</h2>
       
       {
         register
