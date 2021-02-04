@@ -56,6 +56,7 @@ export const StepsProvider = ({ children }: Props) => {
             goToStep(C.LOGIN);
             break;
           case C.LOGIN:
+          case C.SHIPPING:
             goToStep(C.PAYMENT);
             break;
           case C.PAYMENT:
@@ -81,6 +82,7 @@ export const StepsProvider = ({ children }: Props) => {
             goToStep(C.LOGIN);
             break;
           case C.LOGIN:
+          case C.SHIPPING:
             goToStep(C.PAYMENT);
             break;
           case C.PAYMENT:
@@ -122,6 +124,7 @@ export const StepsProvider = ({ children }: Props) => {
         canDo = frequency && date && true;
         break;
       case C.LOGIN:
+      case C.SHIPPING:
       case C.PAYMENT:
         canDo = true;
         break;

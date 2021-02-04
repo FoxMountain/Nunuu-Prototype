@@ -20,8 +20,8 @@ export const Products = () => {
       </button>
 
 
-      <div className="h-horizontal-space-between mb-2">
-        <h2 className="h2 mb-7">
+      <div className="h-horizontal-space-between mb-6">
+        <h2 className="h2">
           {
             isPlan
               ? 'Personaliza tu caja con productos adicionales a tus pañales'

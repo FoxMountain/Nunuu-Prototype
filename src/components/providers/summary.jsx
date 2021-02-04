@@ -9,7 +9,7 @@ export const SummaryProvider = ({ children }: Props) => {
   const [stages, setStages] = React.useState([]);
   const [designs, setDesigns] = React.useState([]);
   const [date, setDate] = React.useState();
-  const [frequency, setFrequency] = React.useState();
+  const [frequency, setFrequency] = React.useState(2);
 
   const changePlan = (value) => {
     setPlan(value);
@@ -109,7 +109,6 @@ export const SummaryProvider = ({ children }: Props) => {
         const limit = stages.filter((st) => (
           st.id === stageID
         )).reduce((prev, curr) => prev + curr.amount, 0);
-        console.log({ limit, total, designsTemp, stages });
 
         if (total <= limit) {
           if (index >= 0) {
@@ -134,11 +133,12 @@ export const SummaryProvider = ({ children }: Props) => {
 
   const clearAll = () => {
     setPlan(true);
+    setOneTimeBuy(true);
     setProducts([]);
     setStages([]);
     setDesigns([]);
     setDate(undefined);
-    setFrequency(undefined);
+    setFrequency(2);
   }
 
   return (
@@ -164,7 +164,7 @@ export const SummaryProvider = ({ children }: Props) => {
           designs: () => setDesigns([]),
           products: () => setProducts([]),
           date: () => setDate(undefined),
-          frequency: () => setFrequency(undefined),
+          frequency: () => setFrequency(2),
         },
       }}
     >
