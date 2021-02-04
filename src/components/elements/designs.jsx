@@ -52,32 +52,46 @@ export const Designs = () => {
       <div className="design-grid">
         {
           stages.map(({ id: stgID, name }) => {
+            const limit = stages.reduce((prev, curr) => {
+              return curr.id === stgID
+                ? prev + curr.amount
+                : prev
+            }, 0);
+            const total = designs.filter((des) => (
+              des.stageID === stgID
+            )).reduce((prev, curr) => {
+              return curr.stageID === stgID
+                ? prev + curr.amount
+                : prev
+            }, 0);
+            console.log({ limit, total });
+
             return (
               <div className="design-card" key={stgID}>
-                <div className="img-container">
-                  <img
-                    src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f2700c612ede6e7cbf076_diaper-design-01.png"
-                    loading="lazy" alt="" className="design-image" />
-                  <img
-                    src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f28503bf6002ea0df1628_gray-texture.svg"
-                    loading="lazy" alt="" className="bg-texture" />
+                <div className="design-img">
+                  <div className="img-container">
+                    <img
+                      src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f2700c612ede6e7cbf076_diaper-design-01.png"
+                      loading="lazy" alt="" className="design-image" />
+                    <img
+                      src="https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f28503bf6002ea0df1628_gray-texture.svg"
+                      loading="lazy" alt="" className="bg-texture" />
+                  </div>
+                  {
+                    multiple 
+                      ? <span className='design-data'>{total}/{limit} Diseños</span>
+                      : null
+                  }
                 </div>
                 <div className="stage-selector">
                   <h3 className="design-stage h3">{name}</h3>
                   <div className="design-selector-grid">
-
                     {
                       C.LIST_ALL_DESIGNS.map(({ id, img }) => {
                         const savedDesign = designs.find((des) => des.designID === id && des.stageID === stgID);
                         const amount = savedDesign
                           ? savedDesign.amount
                           : 0;
-
-                        const limit = stages.reduce((prev, curr) => {
-                          return curr.id === stgID
-                            ? prev + curr.amount
-                            : prev
-                        }, 0);
 
                         return (
                           <div key={`${stgID}-${id}`} className="design-selector">
@@ -96,11 +110,11 @@ export const Designs = () => {
                                 ? null
                                 : (
                                   <div className="input-field display">
-                                    <button onClick={() => changeDesigns(stgID, id, amount - 1) } className="btn-less w-button">-</button>
+                                    <button disabled={amount <= 0} onClick={() => changeDesigns(stgID, id, amount - 1) } className="btn-less w-button">-</button>
                                     <div className="w-embed">
                                       <input type="number" min={0} className="design-quantity" value={amount} onChange={(el) => changeDesigns(stgID, id, el.target.value) } />
                                     </div>
-                                    <button onClick={() => changeDesigns(stgID, id, amount + 1) } className="btn-more w-button">+</button>
+                                    <button disabled={total >= limit} onClick={() => changeDesigns(stgID, id, amount + 1) } className="btn-more w-button">+</button>
                                   </div>
                                 )
                             }

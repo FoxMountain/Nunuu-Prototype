@@ -219,7 +219,8 @@ input::-webkit-inner-spin-button {
 }
 
 .stage-quantity,
-.product-quantity {
+.product-quantity,
+.design-quantity {
   border: 1px solid transparent;
   border-radius: 6px;
   background-color: transparent;
@@ -234,7 +235,9 @@ input::-webkit-inner-spin-button {
 .stage-quantity:focus,
 .stage-quantity:hover,
 .product-quantity:focus,
-.product-quantity:hover {
+.product-quantity:hover,
+.design-quantity:focus,
+.design-quantity:hover {
   border-color: #ef7748;
 }
 
@@ -247,20 +250,70 @@ input::-webkit-inner-spin-button {
 }
 
 .design-grid > .design-card {
+  padding-top: 26px;
+  padding-right: 64px;
   width: 76%;
 }
 
-.design-selector {
-  width: 85px;
+.design-grid > .design-card > .design-img {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+.design-grid > .design-card > .stage-selector {
+  margin-left: 42px;
+  width: calc(67% - 42px);
+}
+.design-grid > .design-card > .stage-selector > .design-selector {
+  width: unset;
+}
+.design-grid > .design-card > .stage-selector .btn-more,
+.design-grid > .design-card > .stage-selector .btn-less {
+  line-height: 20px;
+  max-height: 20px;
+  min-height: 20px;
+  max-width: 20px;
+  min-width: 20px;
+}
+
+.design-card .design-selector .input-field {
+  max-width: 100%;
+  margin-top: 4px;
+  width: 100%;
+}
+.design-card .design-selector .input-field > .w-embed {
+  width: calc(100% - 60px);
+}
+.design-card .design-selector .input-field > .w-embed > input {
+  line-height: 1;
+  width: 100%;
+}
+
+.design-grid > .design-card > .design-img > .img-container {
+  width: 100%;
+}
+.design-grid > .design-card > .design-img > .img-container > .design-image {
+  margin-bottom: 2px;
+  margin-top: 13px;
+}
+.design-grid > .design-card > .design-img > .img-container > .bg-texture {
+  height: 100%;
+  max-width: 100%;
+  top: 0%;
+}
+.design-grid > .design-card > .design-img > .design-data {
+  margin-top: 8px;
+  font-size: 12px;
 }
 
 .design-quantity {
-  width: 30px;
   background-color: transparent;
   border-color: transparent;
   color: #4c4b5e;
   font-size: 24px;
   font-weight: 800;
+  height: 32px;
   text-align: center;
 }
 
