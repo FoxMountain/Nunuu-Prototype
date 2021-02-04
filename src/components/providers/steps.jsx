@@ -67,8 +67,8 @@ export const StepsProvider = ({ children }: Props) => {
       } else {
         switch(currStep) {
           case C.PRODUCTS:
-            const toStage = products.some(({ isStage }) => isStage);
-            if (toStage) goToStep(C.STAGE);
+            const hasDiapers = products.some(({ isDiaper }) => isDiaper);
+            if (hasDiapers) goToStep(C.STAGE);
             else goToStep(C.LOGIN);
             break;
           case C.STAGE:
@@ -100,7 +100,7 @@ export const StepsProvider = ({ children }: Props) => {
         const stageTotal = stages.reduce((prev, curr) => (prev + curr.amount), 0);
         const stageOnLimit = isPlan 
           ? stageTotal === C.PLAN_STAGES_LIMIT 
-          : stageTotal === products.filter(({isStage}) => isStage).reduce((prev, curr) => (prev + curr.amount), 0);
+          : stageTotal === products.filter(({isDiaper}) => isDiaper).reduce((prev, curr) => (prev + curr.amount), 0);
         canDo = stages.length && stageOnLimit;
         break;
       case C.DESIGN:

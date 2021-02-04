@@ -61,7 +61,7 @@ export const SummaryProvider = ({ children }: Props) => {
         }, index >= 0 ? 0 : amount);
         const limit = isPlan
           ? C.PLAN_STAGES_LIMIT
-          : products.filter(({isStage}) => isStage).reduce((prev, curr) => (prev + curr.amount), 0);
+          : products.filter(({isDiaper}) => isDiaper).reduce((prev, curr) => (prev + curr.amount), 0);
 
         if (total <= limit) {
           if (index >= 0) {

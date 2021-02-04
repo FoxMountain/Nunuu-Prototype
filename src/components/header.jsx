@@ -23,7 +23,7 @@ export const Header = () => {
   let body = '';
   let tip = '';
   let timelineValue = 0;
-  const toStage = products.some(({ isStage }) => isStage);
+  const hasDiapers = products.some(({ isDiaper }) => isDiaper);
 
   switch(step) {
     case C.PRODUCTS_PURE:

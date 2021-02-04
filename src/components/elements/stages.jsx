@@ -9,6 +9,13 @@ export const Stages = () => {
   const { goToPrev } = React.useContext(StepsContext);
   const [multiple, setMultiple] = React.useState(false);
 
+  const total = stages.reduce((prev, stage) => (
+    prev + stage.amount
+  ), 0);
+  const limit = isPlan
+    ? C.PLAN_STAGES_LIMIT
+    : products.filter(({isDiaper}) => isDiaper).reduce((prev, curr) => (prev + curr.amount), 0);
+
   React.useEffect(() => {
     if (stages.length > 1) setMultiple(true);
   }, [stages]);
