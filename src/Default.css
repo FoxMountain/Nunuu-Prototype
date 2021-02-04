@@ -1,4 +1,4 @@
-/* Generated on: Thu Jan 28 2021 16:03:04 GMT+0000 (Coordinated Universal Time) */
+/* Generated on: Thu Feb 04 2021 03:57:27 GMT+0000 (Coordinated Universal Time) */
 /* ==========================================================================
    normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
    ========================================================================== */
@@ -1375,10 +1375,6 @@
      transition: border-color 300ms ease;
      text-align: center;
      cursor: pointer;
-   }
-   
-   .stage-card:hover {
-     border-color: #ef7748;
    }
    
    .stage-name {

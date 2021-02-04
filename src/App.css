@@ -16,6 +16,16 @@ button {
   padding: 0;
 }
 
+.btn-more,
+.btn-less {
+  display: block;
+  line-height: 30px;
+  max-height: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  min-width: 30px;
+}
+
 .btn-pink,
 .btn-blue,
 .btn-more,
@@ -78,15 +88,18 @@ button {
   background-image: -webkit-gradient(linear, left top, right top, from(#4b65ff), to(#0025ff));
   background-image: linear-gradient(100deg, #4b65ff, #0025ff);
 }
-.btn-pink:disabled:before,
-.btn-more:disabled:before,
-.btn-less:disabled:before {
+.btn-pink:disabled:before {
   background-image: -webkit-gradient(linear, left top, right top, from(#f2f2f9), to(#eee));
   background-image: linear-gradient(100deg, #f2f2f9, #eee);
 }
 .btn-blue:disabled::before {
   background-image: -webkit-gradient(linear, left top, right top, from(#f2f2f9), to(#eee));
   background-image: linear-gradient(100deg, #f2f2f9, #eee);
+}
+.btn-more:disabled:before,
+.btn-less:disabled:before {
+  background-image: -webkit-gradient(linear, left top, right top, from(#ddd), to(#ddd));
+  background-image: linear-gradient(100deg, #ddd, #ddd);
 }
 .btn-pink::after,
 .btn-more::after,
@@ -175,9 +188,14 @@ input::-webkit-inner-spin-button {
   justify-content: center;
 }
 
+.type-card {
+  height: unset;
+  max-width: 18.75rem;
+}
+
 .resume-name,
 .resume-payment-name {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .resume-price-size {
@@ -191,24 +209,41 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
 }
 
-.product-quantity{
-	width:100px;
-  background-color: transparent;
-  border-color: transparent;
-  color: #4c4b5e;
-  font-size: 24px;
-  font-weight: 800;
-  text-align: center;
+.product-card > .input-field {
+  width: 100%;
+  max-width: calc(100% - 4rem);
+}
+.product-card > .input-field > .w-embed,
+.stage-card > .input-field > .w-embed {
+  width: calc(100% - 80px);
 }
 
-.stage-quantity {
-  width: 70px;
+.stage-quantity,
+.product-quantity {
+  border: 1px solid transparent;
+  border-radius: 6px;
   background-color: transparent;
-  border-color: transparent;
   color: #4c4b5e;
   font-size: 24px;
   font-weight: 800;
   text-align: center;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+.stage-quantity:focus,
+.stage-quantity:hover,
+.product-quantity:focus,
+.product-quantity:hover {
+  border-color: #ef7748;
+}
+
+.stage-card {
+  padding: 16px 21px 18px;
+}
+
+.stage-card > .input-field {
+  width: 100%;
 }
 
 .design-grid > .design-card {
@@ -236,11 +271,12 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.stage-card.active,
-.stage-card:hover,
+.stage-card.single.active,
+.stage-card.single:hover,
 .design.active,
 .design.single:hover,
 .frequency-card.active,
 .frequency-card:hover {
   border-color: #ef7748;
+  cursor: pointer;
 }
