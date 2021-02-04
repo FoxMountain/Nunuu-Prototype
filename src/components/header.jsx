@@ -4,9 +4,9 @@ import classnames from 'classnames';
 import { StepsContext } from './contexts/steps';
 import { SummaryContext } from './contexts/summary';
 
-const TimelineProgress = ({ name, value, currentValue }) => (
+const TimelineProgress = ({ name, value, currentValue, first }) => (
   <div className="progress">
-    <div className={classnames("progressbar", { active: currentValue >= value, 'display-none': value === 1 })}></div>
+    <div className={classnames("progressbar", { active: currentValue >= value, 'display-none': first })}></div>
     <div className="dot-container">
       <div className={classnames("dot", { active: currentValue >= value })}></div>
       <p className={classnames("timeline-label", { active: currentValue >= value })}>
@@ -78,7 +78,7 @@ export const Header = () => {
     : isPlan
       ? (
         <>
-          <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
+          <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} first />
           <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
           <TimelineProgress name='Productos' value={4} currentValue={timelineValue} />
           <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
@@ -91,7 +91,7 @@ export const Header = () => {
         ? oneTimeBuy
           ? (
             <>
-              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} first />
               <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
               <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
               {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
@@ -101,7 +101,7 @@ export const Header = () => {
           )
           : (
             <>
-              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} first />
               <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
               <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
               <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
@@ -112,7 +112,7 @@ export const Header = () => {
           )
         : (
           <>
-            <TimelineProgress name='Productos' value={1} currentValue={timelineValue} />
+            <TimelineProgress name='Productos' value={1} currentValue={timelineValue} first />
             {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
             <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
             <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />

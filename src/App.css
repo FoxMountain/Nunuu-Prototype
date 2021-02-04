@@ -194,12 +194,20 @@ input::-webkit-inner-spin-button {
 }
 
 .resume-name,
-.resume-payment-name {
+.resume-payment-name,
+.resume-payment-address {
   font-size: 14px;
 }
 
+.resume-name-stage,
+.resume-payment-stage,
+.resume-payment-total,
+.resume-payment-address {
+  color: #4c4b5e;
+}
+
 .resume-price-size {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .next-step,
@@ -332,4 +340,23 @@ input::-webkit-inner-spin-button {
 .frequency-card:hover {
   border-color: #ef7748;
   cursor: pointer;
+}
+
+.radio-button-field .label,
+.checkbox-field .label {
+  color: #4c4b5e;
+  font-weight: 500;
+}
+.radio-button-field .radio-button,
+.checkbox-field .w-checkbox-input {
+  width: 24px;
+  height: 24px;
+}
+
+.payment-card .method {
+  transition: border-color 0.3s ease;
+}
+
+.payment-card .method:hover {
+  border-color: #ef7748;
 }

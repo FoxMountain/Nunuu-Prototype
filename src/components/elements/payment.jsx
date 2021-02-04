@@ -34,50 +34,95 @@ export const Payment = () => {
               </div>
               <div className="payment-resume">
                 <h3 className="h3 mb-6">Resumen de Compra</h3>
-                <p className="text-small mb-3">Elige la frecuencia de entrega. Siempre puedes cambiarla en tu portal para no
-                  quedarte sin pañales ni productos.</p>
                 <div className="buy-resume">
-                  <h3 className="text-big mb-2">Resumen</h3>
                   { 
                     isPlan
                       ? (
-                        <div className="resume-payment-item">
-                          <p className="resume-payment-name">Plan Mensual:</p>
-                          <p className="resume-price resume-price-size">$1,000MXN</p><a href="#" className="editar">Editar</a>
-                        </div>
+                        <>
+                          <div className="resume-payment-item">
+                            <p className="resume-payment-name">Plan Mensual:</p>
+                            <p className="resume-price resume-price-size">
+                              <strong>${ toCurrency(monthlyTotal) }</strong>MXN
+                            </p><a href="#" className="editar">Editar</a>
+                          </div>
+                          {
+                            stages.map(({ id, name, amount }) => (
+                              <div className="resume-item" key={id}>
+                                <p className="resume-payment-name resume-payment-stage">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                              </div>
+                            ))
+                          }
+                        </>
                       )
                       : null
-                  }
-
-                  { 
-                    products.filter(({ amount }) => (amount > 0)).map(({ id, name, amount, price = 0 }) => (
-                      <div className="resume-item" key={id}>
-                        <p className="resume-payment-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
-                        <p className="resume-price resume-price-size">${ toCurrency(price * amount) }MXN</p>
-                      </div>
-                    ))
                   }
                   
                   <div className="resume-stages">
                     {
-                      stages.filter(({ amount }) => (amount > 0)).map(({ id, name, amount }) => (
-                        <div className="resume-item" key={id}>
-                          <p className="resume-payment-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
-                        </div>
-                      ))
+                      products.filter(({ isDiaper }) => isDiaper).map(product => {
+                        const { id, name, amount, price, isDiaper } = product;
+                        return (
+                          <div className="resume-item" key={id}>
+                            <p className="resume-payment-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                            <p className="resume-price resume-price-size">
+                              <strong>${ toCurrency(price * amount) }</strong>MXN
+                            </p><a href="#" className="editar">Editar</a>
+                          </div>
+                        );
+                      })
+                    }
+                    {
+                      !isPlan
+                        ? null
+                        : (
+                          stages.map(({ id, name, amount }) => (
+                            <div className="resume-item" key={id}>
+                              <p className="resume-payment-name resume-payment-stage">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                            </div>
+                          ))
+                        )
+                    }
+                    {
+                      products.filter(({ isDiaper }) => !isDiaper).map(product => {
+                        const { id, name, amount, price, isDiaper } = product;
+                        return (
+                          <div className="resume-item" key={id}>
+                            <p className="resume-payment-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                            <p className="resume-price resume-price-size">
+                              <strong>${ toCurrency(price * amount) }</strong>MXN
+                            </p><a href="#" className="editar">Editar</a>
+                          </div>
+                        );
+                      })
                     }
                   </div>
-                  <div className="row mb-7">
-                    <div className="col-padding-0 col-md-12 col-8">
+
+                  <div className="resume-stages">
+                    <div className="resume-item">
                       <p className="resume-payment-name">Envío:</p>
-                    </div>
-                    <div className="col-padding-0 col-md-12 col-4 text-right text-md-left">
-                      <p className='resume-price-size'>${toCurrency(shippingTotal)}MXN</p>
+                      <p className='resume-price resume-price-size'>
+                        <strong>${toCurrency(shippingTotal)}</strong>MXN
+                      </p>
                     </div>
                   </div>
-                  <div className="resume-item">
-                    <p className="resume-name">Total</p>
-                    <p className="resume-total">${toCurrency(total)}MXN</p>
+
+                  <hr className="mb-3 mt-4" style={{ backgroundColor: '#c7c7d4', height: '1px', border: 0 }} />
+
+                  <div className="resume-stages">
+                    <div className="resume-item">
+                      <p className="resume-payment-name resume-payment-total">Total</p>
+                      <p className="resume-price resume-total">
+                        <strong>${toCurrency(total)}</strong>MXN
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="resume-stages">
+                    <h3 className="text-big mb-1">Dirección de Envío</h3>
+                    <div className="resume-item">
+                      <p className="resume-payment-address">Lucerna 60, C.P. 06600, Ciudad de México, México</p>
+                      <p className="resume-price resume-total"></p><a href="#" className="editar">Editar</a>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -23,9 +23,9 @@ export const LIST_PURE_PRODUCTS = [
 export const LIST_ALL_PRODUCTS = [
   ...LIST_PURE_PRODUCTS,
   {id: 3, name: 'Pañalera', desc: 'Pañalera con una capacidad de hasta 50 pañales y cuenta con bolsas internas para que coloques tus toallas y lociones para tu bebé.', img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f6fe8b03ce546cfa8e959_panalera-thumb.png', price: 600, isDiaper: false},
-  {id: 4, name: '', desc: '', img: '', price: 40, isDiaper: false},
-  {id: 5, name: '', desc: '', img: '', price: 80, isDiaper: false},
-  {id: 6, name: '', desc: '', img: '', price: 600, isDiaper: true},
+  {id: 4, name: 'Pañales', desc: 'Los mejores pañales para tu bebé', img: 'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f2700c612ede6e7cbf076_diaper-design-01.png', price: 1000, isDiaper: true},
+  // {id: 5, name: '', desc: '', img: '', price: 80, isDiaper: false},
+  // {id: 6, name: '', desc: '', img: '', price: 600, isDiaper: true},
 ];
 
 export const LIST_ALL_STAGES = [

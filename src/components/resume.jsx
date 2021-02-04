@@ -21,18 +21,46 @@ export const Resume = () => {
         { 
           isPlan
             ? (
-              <div className="resume-item">
-                <p className="resume-name">Plan Mensual:</p>
-                <p className="resume-price resume-price-size">
-                  <strong>${ toCurrency(monthlyTotal) }</strong>MXN
-                </p>
-              </div>
+              <>
+                <div className="resume-item">
+                  <p className="resume-name">Plan Mensual:</p>
+                  <p className="resume-price resume-price-size">
+                    <strong>${ toCurrency(monthlyTotal) }</strong>MXN
+                  </p>
+                </div>
+                {
+                  stages.map(({ id, name, amount }) => (
+                    <div className="resume-item" key={id}>
+                      <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                    </div>
+                  ))
+                }
+              </>
             )
             : null
         }
         <div className="resume-products">
           { 
-            products.filter(({ amount }) => (amount > 0)).map(({ id, name, amount, price = 0 }, index) => (
+            products.filter(({ isDiaper }) => isDiaper).map(({ id, name, amount, price = 0 }, index) => (
+              <div className="resume-item" key={id}>
+                <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                <p className="resume-price resume-price-size">
+                  <strong>${ toCurrency(price * amount) }</strong>MXN
+                </p>
+              </div>
+            ))
+          }
+          {
+            isPlan
+              ? null
+              : stages.map(({ id, name, amount }) => (
+                <div className="resume-item" key={id}>
+                  <p className="resume-name resume-name-stage">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
+                </div>
+              ))
+          }
+          { 
+            products.filter(({ isDiaper }) => !isDiaper).map(({ id, name, amount, price = 0 }, index) => (
               <div className="resume-item" key={id}>
                 <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
                 <p className="resume-price resume-price-size">
@@ -43,13 +71,7 @@ export const Resume = () => {
           }
         </div>
         <div className="resume-stages">
-          {
-            stages.filter(({ amount }) => (amount > 0)).map(({ id, name, amount }) => (
-              <div className="resume-item" key={id}>
-                <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
-              </div>
-            ))
-          }
+          
         </div>
         <div className="row mb-7">
           <div className="col-padding-0 col-md-12 col-8">

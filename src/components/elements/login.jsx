@@ -14,17 +14,19 @@ export const Login = () => {
           <form id="email-form" name="email-form" data-name="Email Form">
             <div className="row mb-4">
               <div className="col-6 pl-0 pr-3 mb-4">
-                <label for="Correo" className="label">Email</label>
+                <label htmlFor="Correo" className="label">Email</label>
                 <input
-                  type="email" className="input w-input" maxlength="256" name="Correo" data-name="Correo"
-                  placeholder="Escribe tu correo" id="Correo" required=""
+                  type="email" className="input w-input" maxLength="256" name="Correo" data-name="Correo"
+                  placeholder="Escribe tu correo" id="Correo" required
+
                 />
               </div>
               <div className="col-6 pr-0 pl-3 mb-4">
-                <label for="Contrase-a" className="label">Contraseña</label>
+                <label htmlFor="Contrase-a" className="label">Contraseña</label>
                 <input
-                  type="password" className="input w-input" maxlength="256" name="Contrase-a" data-name="Contraseña"
-                  placeholder="Escribe tu contraseña" id="Contrase-a" required=""
+                  type="password" className="input w-input" maxLength="256" name="Contrase-a" data-name="Contraseña"
+                  placeholder="Escribe tu contraseña" id="Contrase-a" required
+
                 />
               </div>
               <a href="#" className="text-small text-decoration-none text-orange">He olvidado mi contraseña</a>
@@ -43,64 +45,69 @@ export const Login = () => {
         <div className="w-form">
           <form id="email-form" name="email-form" data-name="Email Form">
             <div className="row mb-4">
-              <label className="radio-button-field-2 mr-4 w-radio">
+              <label className="radio-button-field mr-4 w-radio">
                 <input type="radio" data-name="Gender"
                   id="Sr." name="Gender" value="Sr." className="w-form-formradioinput radio-button w-radio-input"
                 />
-                <span for="Sr.-2" className="label w-form-label">Sr.</span>
+                <span htmlFor="Sr.-2" className="label w-form-label">Sr.</span>
               </label>
               <label className="radio-button-field w-radio">
                 <input
                   type="radio" data-name="Gender" id="Sr." name="Gender" value="Sr."
                   className="w-form-formradioinput radio-button w-radio-input"
                 />
-                <span for="Sr.-2" className="label w-form-label">Sra.</span>
+                <span htmlFor="Sr.-2" className="label w-form-label">Sra.</span>
               </label>
             </div>
             <div className="row">
               <div className="col-6 pl-0 pr-3 mb-4">
-                <label for="Nuevo-Nombre-2" className="label">Nombre*</label>
+                <label htmlFor="Nuevo-Nombre-2" className="label">Nombre*</label>
                 <input type="text"
-                  className="input w-input" maxlength="256" name="Nuevo-Nombre-2" data-name="Nuevo Nombre 2"
-                  placeholder="Escribe tu nombre" id="Nuevo-Nombre-2" required=""
+                  className="input w-input" maxLength="256" name="Nuevo-Nombre-2" data-name="Nuevo Nombre 2"
+                  placeholder="Escribe tu nombre" id="Nuevo-Nombre-2" required
+
                 />
               </div>
               <div className="col-6 pr-0 pl-3 mb-4">
-                <label for="Nuevo-apellidos-2" className="label">Apellidos*</label>
+                <label htmlFor="Nuevo-apellidos-2" className="label">Apellidos*</label>
                 <input
-                  type="text" className="input w-input" maxlength="256" name="Nuevo-apellidos-2" data-name="Nuevo Apellidos 2"
-                  placeholder="Escribe tus apellidos" id="Nuevo-apellidos-2" required=""
+                  type="text" className="input w-input" maxLength="256" name="Nuevo-apellidos-2" data-name="Nuevo Apellidos 2"
+                  placeholder="Escribe tus apellidos" id="Nuevo-apellidos-2" required
+
                 />
               </div>
             </div>
             <div className="row">
               <div className="col-6 pl-0 pr-3 mb-4">
-                <label for="Nuevo-correo-2" className="label">email*</label>
+                <label htmlFor="Nuevo-correo-2" className="label">email*</label>
                 <input type="text"
-                  className="input w-input" maxlength="256" name="Nuevo-correo-2" data-name="Nuevo Correo 2"
-                  placeholder="Escribe tu correo" id="Nuevo-correo-2" required=""
+                  className="input w-input" maxLength="256" name="Nuevo-correo-2" data-name="Nuevo Correo 2"
+                  placeholder="Escribe tu correo" id="Nuevo-correo-2" required
+
                 />
               </div>
               <div className="col-6 pr-0 pl-3 mb-4">
-                <label for="telefono-2" className="label">TELÉFONO</label>
+                <label htmlFor="telefono-2" className="label">TELÉFONO</label>
                 <input type="tel"
-                  className="input w-input" maxlength="256" name="telefono-2" data-name="Telefono 2"
+                  className="input w-input" maxLength="256" name="telefono-2" data-name="Telefono 2"
                   placeholder="Escribe tu No.De Teléfono" id="telefono-2"/>
               </div>
             </div>
             <div className="row mb-4">
               <div className="col-6 pl-0 pr-3 mb-4">
-                <label for="nuevo-contrase-a-3" className="label">Contraseña*</label>
+                <label htmlFor="nuevo-contrase-a-3" className="label">Contraseña*</label>
                 <input
-                  type="password" className="input w-input" maxlength="256" name="nuevo-contrase-a-3"
-                  data-name="Nuevo Contrase A 3" placeholder="Escribe tu contraseña" id="nuevo-contrase-a-3" required=""
+                  type="password" className="input w-input" maxLength="256" name="nuevo-contrase-a-3"
+                  data-name="Nuevo Contrase A 3" placeholder="Escribe tu contraseña" id="nuevo-contrase-a-3" required
+
                 />
               </div>
               <div className="col-6 pr-0 pl-3 mb-4">
-                <label for="nuevo-conf-contrase-a-2" className="label">CONFIRMA TU Contraseña</label>
-                <input type="password" className="input w-input" maxlength="256"
+                <label htmlFor="nuevo-conf-contrase-a-2" className="label">CONFIRMA TU Contraseña</label>
+                <input type="password" className="input w-input" maxLength="256"
                   name="nuevo-conf-contrase-a-2" data-name="Nuevo Conf Contrase A 2"
-                  placeholder="Escribe de nuevo tu contraseña" id="nuevo-conf-contrase-a-2" required=""
+                  placeholder="Escribe de nuevo tu contraseña" id="nuevo-conf-contrase-a-2" required
+
                 />
               </div>
               <label className="w-checkbox checkbox-field">
@@ -141,36 +148,61 @@ export const Login = () => {
           <form id="email-form" name="email-form">
             <div className="row">
               <div className="col-6 pl-0 pr-3 mb-4">
-                <label for="Nombre" className="label">Nombre*</label>
+                <label htmlFor="Nombre" className="label">Nombre*</label>
                 <input
-                  type="text" className="input w-input" maxlength="256" name="Nombre" data-name="Nombre"
-                  placeholder="Escribe tu nombre" id="Nombre" required=""
+                  type="text"
+                  className="input w-input"
+                  maxLength="256"
+                  name="Nombre"
+                  placeholder="Escribe tu nombre"
+                  id="Nombre"
+                  required
                 />
               </div>
               <div className="col-6 pr-0 pl-3 mb-4">
-                <label for="Apellidos" className="label">Apellidos*</label>
+                <label htmlFor="Apellidos" className="label">Apellidos*</label>
                 <input
-                  type="text" className="input w-input" maxlength="256" name="Apellidos" data-name="Apellidos"
-                  placeholder="Escribe tus apellidos" id="Apellidos" required=""
+                  type="text"
+                  className="input w-input"
+                  maxLength="256"
+                  name="Apellidos"
+                  placeholder="Escribe tus apellidos"
+                  id="Apellidos"
+                  required
                 />
               </div>
             </div>
-            <label for="Direcci-n" className="label">Dirección*</label>
-            <input type="text"
-              className="input mb-4 w-input" maxlength="256" name="Direcci-n" data-name="Dirección"
-              placeholder="Calle y Número" id="Direcci-n" required=""
+            <label htmlFor="Direcci-n" className="label">Dirección*</label>
+            <input
+              type="text"
+              className="input mb-4 w-input"
+              maxLength="256"
+              name="Direcci-n"
+              placeholder="Calle y Número"
+              id="Direcci-n"
+              required
             />
             <div className="row mb-4">
               <div className="col-6 pl-0 pr-3 mb-4">
-                <label for="CP" className="label">Código Postal*</label>
+                <label htmlFor="CP" className="label">Código Postal*</label>
                 <input
-                  type="number" className="input w-input" maxlength="256" name="CP" data-name="CP"
-                  placeholder="Escribe tu código" id="CP" required=""
+                  type="number"
+                  className="input w-input"
+                  maxLength="256"
+                  name="CP"
+                  placeholder="Escribe tu código"
+                  id="CP"
+                  required
                 />
               </div>
               <div className="col-6 pr-0 pl-3 mb-4">
-                <label for="Apellidos-2" className="label">Ciudad</label>
-                <select id="field" name="field" required="" defaultValue='Second' className="select-field w-select">
+                <label htmlFor="city" className="label">Ciudad</label>
+                <select
+                    name="city"
+                    required
+                    defaultValue='Second'
+                    className="select-field w-select"
+                >
                   <option value="First">Aguascalientes</option>
                   <option value="Second">CDMX</option>
                   <option value="Third">Querétaro</option>
@@ -178,12 +210,6 @@ export const Login = () => {
               </div>
             </div>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
       </div>
     </div>
