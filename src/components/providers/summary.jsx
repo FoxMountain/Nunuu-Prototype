@@ -4,7 +4,7 @@ import * as C from '../../constants';
 
 export const SummaryProvider = ({ children }: Props) => {
   const [isPlan, setPlan] = React.useState(true);
-  const [oneTimeBuy, setOneTimeBuy] = React.useState(true);
+  const [oneTimeBuy, setOneTimeBuy] = React.useState(false);
   const [products, setProducts] = React.useState([]);
   const [stages, setStages] = React.useState([]);
   const [designs, setDesigns] = React.useState([]);
@@ -133,7 +133,7 @@ export const SummaryProvider = ({ children }: Props) => {
 
   const clearAll = () => {
     setPlan(true);
-    setOneTimeBuy(true);
+    setOneTimeBuy(false);
     setProducts([]);
     setStages([]);
     setDesigns([]);

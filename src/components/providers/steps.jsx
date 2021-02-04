@@ -76,7 +76,7 @@ export const StepsProvider = ({ children }: Props) => {
             goToStep(C.DESIGN);
             break;
           case C.DESIGN:
-            goToStep(!oneTimeBuy ? C.FREQUENCY : C.LOGIN);
+            goToStep(C.LOGIN);
             break;
           case C.FREQUENCY:
             goToStep(C.LOGIN);

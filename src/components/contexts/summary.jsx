@@ -2,7 +2,7 @@ import React from 'react';
 
 export const SummaryContext = React.createContext({
   isPlan: true,
-  oneTimeBuy: true,
+  oneTimeBuy: false,
   products: [],
   stages: [],
   designs: [],

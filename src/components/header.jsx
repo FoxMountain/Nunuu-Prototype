@@ -18,7 +18,7 @@ const TimelineProgress = ({ name, value, currentValue, first }) => (
 
 export const Header = () => {
   const { currStep: step } = React.useContext(StepsContext);
-  const { isPlan, oneTimeBuy, products } = React.useContext(SummaryContext);
+  const { isPlan, products } = React.useContext(SummaryContext);
   let title = '';
   let body = '';
   let tip = '';
@@ -77,34 +77,22 @@ export const Header = () => {
     ? null
     : isPlan
       ? (
-        <>
-          <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} first />
-          <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
-          <TimelineProgress name='Productos' value={4} currentValue={timelineValue} />
-          <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
-          {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
-          <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
-          <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
-        </>
-      )
+          <>
+            <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} first />
+            <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
+            <TimelineProgress name='Productos' value={4} currentValue={timelineValue} />
+            <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
+            {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
+            <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
+            <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
+          </>
+        )
       : hasDiapers
-        ? oneTimeBuy
-          ? (
+        ? (
             <>
               <TimelineProgress name='Productos' value={1} currentValue={timelineValue} first />
               <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
               <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
-              {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
-              <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
-              <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />
-            </>
-          )
-          : (
-            <>
-              <TimelineProgress name='Productos' value={1} currentValue={timelineValue} first />
-              <TimelineProgress name='Etapa' value={2} currentValue={timelineValue} />
-              <TimelineProgress name='Diseño' value={3} currentValue={timelineValue} />
-              <TimelineProgress name='Frecuencia' value={7} currentValue={timelineValue} />
               {/* <TimelineProgress name='Cuenta' value={8} currentValue={timelineValue} /> */}
               <TimelineProgress name='Envío' value={9} currentValue={timelineValue} />
               <TimelineProgress name='Pago' value={10} currentValue={timelineValue} />

@@ -31,8 +31,7 @@ export const Products = () => {
         <div className="h-vertical-center">
           {
             isPlan
-              ? null
-              : (
+              ? (
                 <>
                   <p className="mr-2">Solo este mes</p>
                   <div className="w-embed w-script">
@@ -48,6 +47,7 @@ export const Products = () => {
                   <p className="ml-2">Cada mes (-30%)</p>
                 </>
               )
+              : null
           }
         </div>
       </div>
