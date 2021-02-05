@@ -105,7 +105,8 @@ export const StepsProvider = ({ children }: Props) => {
         const stageTotal = stages.reduce((prev, curr) => (prev + curr.amount), 0);
         const stageOnLimit = isPlan 
           ? stageTotal === C.PLAN_STAGES_LIMIT 
-          : stageTotal === products.filter(({isDiaper}) => isDiaper).reduce((prev, curr) => (prev + curr.amount), 0);
+          : stageTotal === products.filter(({isDiaper}) => isDiaper).reduce(
+            (prev, curr) => (prev + (curr.amount * curr.packages)), 0);
         canDo = stages.length && stageOnLimit;
         break;
       case C.DESIGN:

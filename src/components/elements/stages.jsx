@@ -14,7 +14,8 @@ export const Stages = () => {
   ), 0);
   const limit = isPlan
     ? C.PLAN_STAGES_LIMIT
-    : products.filter(({isDiaper}) => isDiaper).reduce((prev, curr) => (prev + curr.amount), 0);
+    : products.filter(({isDiaper}) => isDiaper).reduce(
+      (prev, curr) => (prev + (curr.amount * curr.packages)), 0);
 
   React.useEffect(() => {
     if (stages.length > 1) setMultiple(true);
@@ -73,49 +74,50 @@ export const Stages = () => {
               : 0;
 
             return (
-              <div 
-                key={id}
-                className={classnames("stage-card", { single: !multiple, active: !multiple && amount })}
-                onClick={multiple ? undefined : () => changeStages(stage, limit, !multiple)}
-              >
-                <h3 className="stage-name h3">{name}</h3>
-                <img
-                  src={img}
-                  loading="lazy" alt="" className="stage-image"
-                />
-                <p className="stage-target">{target}</p>
-                <p className="stage-equivalence text-small mb-1">{equiv}</p>
-                {
-                  !multiple
-                    ? null
-                    : (
-                      <div className="input-field display">
-                        <button 
-                          disabled={amount === 0}
-                          className="btn-less w-button"
-                          onClick={() => changeStages(stage, amount - 1) }
-                        >
-                          -
-                        </button>
-                        <div className="w-embed">
-                          <input
-                            type="number"
-                            min={0}
-                            className="stage-quantity"
-                            value={amount}
-                            onChange={(el) => changeStages(stage, el.target.value) }
-                          />
+              <div className='stage-card-wrap' key={id}>
+                <div 
+                  className={classnames("stage-card", { single: !multiple, active: !multiple && amount })}
+                  onClick={multiple ? undefined : () => changeStages(stage, limit, !multiple)}
+                >
+                  <h3 className="stage-name h3">{name}</h3>
+                  <img
+                    src={img}
+                    loading="lazy" alt="" className="stage-image"
+                  />
+                  <p className="stage-target">{target}</p>
+                  <p className="stage-equivalence text-small mb-1">{equiv}</p>
+                  {
+                    !multiple
+                      ? null
+                      : (
+                        <div className="input-field display">
+                          <button 
+                            disabled={amount === 0}
+                            className="btn-less w-button"
+                            onClick={() => changeStages(stage, amount - 1) }
+                          >
+                            -
+                          </button>
+                          <div className="w-embed">
+                            <input
+                              type="number"
+                              min={0}
+                              className="stage-quantity"
+                              value={amount}
+                              onChange={(el) => changeStages(stage, el.target.value) }
+                            />
+                          </div>
+                          <button
+                            disabled={total === limit}
+                            className="btn-more w-button"
+                            onClick={() => changeStages(stage, amount + 1) }
+                          >
+                            +
+                          </button>
                         </div>
-                        <button
-                          disabled={total === limit}
-                          className="btn-more w-button"
-                          onClick={() => changeStages(stage, amount + 1) }
-                        >
-                          +
-                        </button>
-                      </div>
-                    )
-                }
+                      )
+                  }
+                </div>
               </div>
             );
           })

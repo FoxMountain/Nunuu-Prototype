@@ -253,6 +253,10 @@ input::-webkit-inner-spin-button {
   border-color: #ef7748;
 }
 
+.stage-card-wrap {
+  width: 26%;
+}
+
 .stage-card {
   padding: 16px 21px 18px;
 }

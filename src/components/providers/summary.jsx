@@ -14,7 +14,7 @@ const tomorrow = `${tmr.getFullYear()}-${zero(tmr.getMonth() + 1)}-${zero(tmr.ge
 
 export const SummaryProvider = ({ children }: Props) => {
   const [isPlan, setPlan] = React.useState(true);
-  const [oneTimeBuy, setOneTimeBuy] = React.useState(false);
+  const [oneTimeBuy, setOneTimeBuy] = React.useState(true);
   const [products, setProducts] = React.useState([]);
   const [stages, setStages] = React.useState([]);
   const [designs, setDesigns] = React.useState([]);
@@ -76,7 +76,8 @@ export const SummaryProvider = ({ children }: Props) => {
         }, index >= 0 ? 0 : amount);
         const limit = isPlan
           ? C.PLAN_STAGES_LIMIT
-          : products.filter(({isDiaper}) => isDiaper).reduce((prev, curr) => (prev + curr.amount), 0);
+          : products.filter(({isDiaper}) => isDiaper).reduce(
+            (prev, curr) => (prev + (curr.amount * curr.packages)), 0);
 
         if (total <= limit) {
           if (index >= 0) {
@@ -173,8 +174,8 @@ export const SummaryProvider = ({ children }: Props) => {
           stages: () => setStages([]),
           designs: () => setDesigns([]),
           products: () => setProducts([]),
-          date: () => setDate(undefined),
-          frequency: () => setFrequency(2),
+          date: () => setDate(tomorrow),
+          frequency: () => setFrequency(undefined),
         },
       }}
     >

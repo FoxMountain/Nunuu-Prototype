@@ -5,14 +5,19 @@ import { SummaryContext } from './contexts/summary';
 import * as C from '../constants';
 
 export const Resume = () => {
-  const { isPlan, products, stages } = React.useContext(SummaryContext);
+  const { isPlan, oneTimeBuy, products, stages } = React.useContext(SummaryContext);
   const { goToNext, canGoToNext } = React.useContext(StepsContext); 
+
+  const mx = isPlan && !oneTimeBuy
+    ? 1 - C.DISCOUNT
+    : 1;
 
   const monthlyTotal = isPlan ? C.PLAN_COST : 0;
   const shippingTotal = isPlan ? C.SHIPPING_PLAN : C.SHIPPING_PRODUCTS;
   const productsTotal = products.reduce(
-    (prev, { amount, price = 0 }, index) => prev + (amount * price), 0);
+    (prev, { amount, price = 0 }, index) => prev + ((amount * price) * mx), 0);
   const total = monthlyTotal + shippingTotal + productsTotal;
+
 
   return (
     <div className="process-resume v-vertical-start">
@@ -45,7 +50,7 @@ export const Resume = () => {
               <div className="resume-item" key={id}>
                 <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
                 <p className="resume-price resume-price-size">
-                  <strong>${ toCurrency(price * amount) }</strong>MXN
+                  <strong>${ toCurrency((price * amount) * mx) }</strong>MXN
                 </p>
               </div>
             ))
@@ -64,7 +69,7 @@ export const Resume = () => {
               <div className="resume-item" key={id}>
                 <p className="resume-name">{ amount > 1 ? `X${amount} ` : ''}{ name }</p>
                 <p className="resume-price resume-price-size">
-                  <strong>${ toCurrency(price * amount) }</strong>MXN
+                  <strong>${ toCurrency((price * amount) * mx) }</strong>MXN
                 </p>
               </div>
             ))
