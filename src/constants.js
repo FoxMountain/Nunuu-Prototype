@@ -12,6 +12,8 @@ export const CONGRATS = 'congratulations';
 export const PLAN_STAGES_LIMIT = 5;
 export const PLAN_COST = 1000;
 
+export const DISCOUNT = 0.3;
+
 export const SHIPPING_PLAN = 0;
 export const SHIPPING_PRODUCTS = 100;
 
@@ -25,6 +27,7 @@ export const LIST_PURE_PRODUCTS = [
             'https://assets.website-files.com/600eff8cbf53c99e0ed39440/6010374763ee0f308073019b_toallitas-humedas.png',
         price: 40,
         isDiaper: false,
+        packages: 0,
     },
     {
         id: 2,
@@ -35,6 +38,7 @@ export const LIST_PURE_PRODUCTS = [
             'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f6fd4a9317798cc7aaa22_biogel-limpiador.png',
         price: 80,
         isDiaper: false,
+        packages: 0,
     },
 ];
 
@@ -49,6 +53,7 @@ export const LIST_ALL_PRODUCTS = [
             'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f6fe8b03ce546cfa8e959_panalera-thumb.png',
         price: 600,
         isDiaper: false,
+        packages: 0,
     },
     {
         id: 4,
@@ -56,11 +61,10 @@ export const LIST_ALL_PRODUCTS = [
         desc: 'Los mejores pañales para tu bebé',
         img:
             'https://assets.website-files.com/600eff8cbf53c99e0ed39440/600f2700c612ede6e7cbf076_diaper-design-01.png',
-        price: 1000,
+        price: 1129,
         isDiaper: true,
+        packages: 1,
     },
-    // {id: 5, name: '', desc: '', img: '', price: 80, isDiaper: false},
-    // {id: 6, name: '', desc: '', img: '', price: 600, isDiaper: true},
 ];
 
 export const LIST_ALL_STAGES = [
