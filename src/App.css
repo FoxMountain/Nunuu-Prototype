@@ -197,6 +197,15 @@ input::-webkit-inner-spin-button {
   max-width: 18.75rem;
 }
 
+@media (max-width: 768px) {
+  .type-card {
+    max-width: unset;
+    width: 40%;
+    margin-right: 21px;
+    margin-left: 21px;
+  }
+}
+
 .resume-name,
 .resume-payment-name,
 .resume-payment-address {
@@ -261,6 +270,23 @@ input::-webkit-inner-spin-button {
   padding: 16px 21px 18px;
 }
 
+
+@media (max-width: 768px) {
+  .stages-grid {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .stage-card-wrap {
+    width: 33%;
+  }
+
+  .stage-card {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: calc(100% - 2rem);
+  }
+}
+
 .stage-card > .input-field {
   width: 100%;
 }
@@ -268,7 +294,15 @@ input::-webkit-inner-spin-button {
 .design-grid > .design-card {
   padding-top: 26px;
   padding-right: 64px;
+  min-width: 550px;
   width: 76%;
+}
+
+@media (max-width: 768px) {
+  .design-grid > .design-card {
+    min-width: unset;
+    width: 100%;
+  }
 }
 
 .design-grid > .design-card > .design-img {
@@ -338,6 +372,13 @@ input::-webkit-inner-spin-button {
   border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .frequency {
+    width: 63%;
+    padding-left: 0rem;
+  }
 }
 
 .stage-card.single.active,

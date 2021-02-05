@@ -10,7 +10,7 @@ export const PAYMENT = 'payment';
 export const CONGRATS = 'congratulations';
 
 export const PLAN_STAGES_LIMIT = 5;
-export const PLAN_COST = 1000;
+export const PLAN_COST = 1129;
 
 export const DISCOUNT = 0.3;
 
