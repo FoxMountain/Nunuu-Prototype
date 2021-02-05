@@ -4,6 +4,16 @@ import * as C from '../../constants';
 import { SummaryContext } from '../contexts/summary';
 import { StepsContext } from '../contexts/steps';
 
+const tmr = new Date();
+tmr.setDate(tmr.getDate() + 1);
+
+const zero = (day) => {
+  if (day >= 10) return `${day}`;
+  else return `0${day}`;
+}
+
+const tomorrow = `${tmr.getFullYear()}-${zero(tmr.getMonth() + 1)}-${zero(tmr.getDate())}`;
+
 export const Frequency = () => {
   const { date, frequency, changeDate, changeFrequency } = React.useContext(SummaryContext);
   const { goToPrev } = React.useContext(StepsContext);
@@ -26,10 +36,12 @@ export const Frequency = () => {
             <h3 className="h3 mb-1">Primer Fecha De Entrega</h3>
             <p className="text-small mb-3">Elige el día en el que te gustaría recibir tu entrega.</p>
             <div className="w-embed">
-              <input type="date"
+              <input
+                type="date"
                 data-date-inline-picker="true"
                 value={date}
                 onChange={(el) => changeDate(el.target.value)}
+                min={tomorrow}
               />
             </div>
           </div>
