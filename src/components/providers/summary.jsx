@@ -2,13 +2,15 @@ import React from 'react';
 import { SummaryContext } from '../contexts/summary';
 import * as C from '../../constants';
 
-const tmr = new Date();
-tmr.setDate(tmr.getDate() + 1);
-
 const zero = (day) => {
   if (day >= 10) return `${day}`;
   else return `0${day}`;
 }
+
+const tmr = new Date();
+tmr.setDate(tmr.getDate() + 1);
+
+const tomorrow = `${tmr.getFullYear()}-${zero(tmr.getMonth() + 1)}-${zero(tmr.getDate())}`;
 
 export const SummaryProvider = ({ children }: Props) => {
   const [isPlan, setPlan] = React.useState(true);
@@ -16,7 +18,7 @@ export const SummaryProvider = ({ children }: Props) => {
   const [products, setProducts] = React.useState([]);
   const [stages, setStages] = React.useState([]);
   const [designs, setDesigns] = React.useState([]);
-  const [date, setDate] = React.useState(`${tmr.getFullYear()}-${zero(tmr.getMonth() + 1)}-${zero(tmr.getDate())}`);
+  const [date, setDate] = React.useState(tomorrow);
   const [frequency, setFrequency] = React.useState();
 
   const changePlan = (value) => {
